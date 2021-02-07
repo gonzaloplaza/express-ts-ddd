@@ -18,6 +18,13 @@ Development (Runs on 5000 port):
 yarn dev
 ```
 
+Run tests and generate coverage report:
+
+```
+yarn test
+yarn coverage
+```
+
 Build/Compile from TS to JS:
 
 ```

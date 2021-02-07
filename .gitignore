@@ -6,6 +6,9 @@ pids
 *.seed
 *.pid.lock
 node_modules
+coverage
 *.tsbuildinfo
 .env
 build
+dist
+coverage
