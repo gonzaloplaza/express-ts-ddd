@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:15-alpine
 
 LABEL Maintainer="Gonzalo Plaza <gonzalo@verize.com>" \
       Description="Lightweight container with Nginx 1.16 & Node 14 based on Alpine Linux"
