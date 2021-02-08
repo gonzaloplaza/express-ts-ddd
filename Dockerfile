@@ -44,5 +44,5 @@ RUN yarn build
 # Expose the port nginx is reachable on
 EXPOSE ${NGINX_PORT}
 
-# Let supervisord start nginx & php-fpm
+# Let supervisord start nginx && node js built app
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

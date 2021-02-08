@@ -1,0 +1,30 @@
+name: ci
+on:
+    pull_request:
+    push:
+        branches:
+            - "master"
+jobs:
+    test:
+        name: Express-TS (Node ${{ matrix.node-version }} on ${{ matrix.operating-system }})
+        runs-on: ${{ matrix.operating-system }}
+        strategy:
+            fail-fast: false
+            matrix:
+                operating-system: [ubuntu-latest]
+                node-version: [14.x]
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - run: npm install -g yarn
+            - run: yarn --version    
+            - name: Install dependencies with Yarn
+              run: yarn install 
+            - name: Build/Transpile TypeScript files to dist
+              run: yarn build
+            - name: Run tests
+              run: yarn test
