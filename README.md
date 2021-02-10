@@ -1,5 +1,10 @@
 # Express-TS-DDD REST API
 
+[![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
+![GitHub Repo Size](https://img.shields.io/github/repo-size/gonzaloplaza/express-ts-ddd)
+[![Github CI](https://github.com/gonzaloplaza/express-ts-ddd/workflows/ci/badge.svg)](https://github.com/gonzaloplaza/express-ts-ddd/actions)
+[![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 This is another Express + TypeScript + DDD (Domain Driven Design patterns) + IoC/DI (Inversion of
 control and Dependency injection) + API REST boilerplate.
 
