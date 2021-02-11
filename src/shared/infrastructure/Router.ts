@@ -3,7 +3,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import * as controllers from '../../api/infrastructure/express/controllers';
+
 import {
     RouteNotFoundErrorHandler,
     ClientErrorHandler,
@@ -11,14 +11,10 @@ import {
     GlobalErrorHandler
 } from './middlewares/ErrorMiddleware';
 
-export const Router = (
-    IndexController: controllers.IndexController,
-    HealthCheckController: controllers.HealthCheckController
-): ExpressRouter => {
+export const Router = (apiRouter: ExpressRouter): ExpressRouter => {
     const router = ExpressRouter();
-    const apiRouter = ExpressRouter();
 
-    apiRouter
+    router
         .use(helmet())
         .use(cors())
         .use(bodyParser.json())
@@ -28,10 +24,6 @@ export const Router = (
             })
         )
         .use(compression());
-
-    apiRouter.get('/', IndexController.invoke.bind(IndexController));
-    apiRouter.get('/health_check', HealthCheckController.invoke.bind(HealthCheckController));
-
     router.use(apiRouter);
     router.use(RouteNotFoundErrorHandler);
     router.use(ClientErrorHandler);
