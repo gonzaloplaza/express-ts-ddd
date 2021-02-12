@@ -1,5 +1,10 @@
-import { HealthCheckResponse } from './HealthCheckResponse';
 import IUuidGenerator from '../../../shared/domain/IUuidGenerator';
+
+type HealthCheckResponse = {
+    id: string;
+    success: boolean;
+    date: string;
+};
 
 export class HealthCheckService {
     constructor(private uuidGenerator: IUuidGenerator) {}

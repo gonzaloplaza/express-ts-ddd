@@ -21,6 +21,12 @@ yarn install
 cp .env.dist .env
 ```
 
+Configure PostgreSQL connection string with your own parameters inside _.env_ file:
+
+```
+DATABASE_URL="postgresql://user:password@localhost:5432/mydb?schema=public"
+```
+
 ### Development (Runs on 5000 port)
 
 ```bash
@@ -63,9 +69,9 @@ Example JSON response (/health_check):
 
 ```json
 {
-    "id": "cd6f2876-5de5-4433-b0b9-fb7a8d47abbb",
-    "success": true,
-    "date": "2021-02-07T20:13:21.720Z"
+  "id": "cd6f2876-5de5-4433-b0b9-fb7a8d47abbb",
+  "success": true,
+  "date": "2021-02-07T20:13:21.720Z"
 }
 ```
 
@@ -73,7 +79,7 @@ Example JSON response (/health_check):
 
 Next steps:
 
--   Adds Prisma ORM with PostgreSQL implementation
--   Adds Github CI + CI testings
--   Better documentation
--   Improve Docker for production environments and development (docker-compose)
+- Adds Prisma ORM with PostgreSQL implementation
+- Adds Github CI + CI testings
+- Better documentation
+- Improve Docker for production environments and development (docker-compose)

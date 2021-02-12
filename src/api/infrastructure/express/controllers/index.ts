@@ -4,8 +4,8 @@ import { GetActivitiesController } from './activity/GetActivitiesController';
 import { CreateActivityController } from './activity/CreateActivityController';
 
 export {
-    IndexController,
-    HealthCheckController,
-    GetActivitiesController,
-    CreateActivityController
+  IndexController,
+  HealthCheckController,
+  GetActivitiesController,
+  CreateActivityController
 };

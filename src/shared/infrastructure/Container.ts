@@ -14,50 +14,47 @@ import { ApiRouter } from '../../api/infrastructure/express/router';
 import { PrismaClientInstance } from '../infrastructure/prisma';
 
 export class Container {
-    private container: AwilixContainer;
+  private container: AwilixContainer;
 
-    constructor() {
-        this.container = createContainer({
-            injectionMode: InjectionMode.CLASSIC
-        });
+  constructor() {
+    this.container = createContainer({
+      injectionMode: InjectionMode.CLASSIC
+    });
 
-        this.register();
-    }
+    this.register();
+  }
 
-    public register(): void {
-        this.container
-            .register({
-                server: asClass(Server).singleton(),
-                app: asClass(Kernel).singleton(),
-                router: asFunction(Router).singleton(),
-                db: asFunction(PrismaClientInstance).singleton()
-            })
-            .register({
-                apiRouter: asFunction(ApiRouter).singleton()
-            })
-            .register({
-                uuidGenerator: asClass(Uuidv4Generator).singleton()
-            })
-            .register({
-                IndexController: asClass(ApiControllers.IndexController).singleton()
-            })
-            .register({
-                HealthCheckController: asClass(ApiControllers.HealthCheckController).singleton(),
-                healthCheckService: asClass(ApiServices.HealthCheckService).singleton()
-            })
-            .register({
-                GetActivitiesController: asClass(
-                    ApiControllers.GetActivitiesController
-                ).singleton(),
-                CreateActivityController: asClass(
-                    ApiControllers.CreateActivityController
-                ).singleton(),
-                getActivitiesService: asClass(ApiServices.GetActivitiesService).singleton(),
-                activityRepository: asClass(PrismaActivityRepository).singleton()
-            });
-    }
+  public register(): void {
+    this.container
+      .register({
+        server: asClass(Server).singleton(),
+        app: asClass(Kernel).singleton(),
+        router: asFunction(Router).singleton(),
+        db: asFunction(PrismaClientInstance).singleton()
+      })
+      .register({
+        apiRouter: asFunction(ApiRouter).singleton()
+      })
+      .register({
+        uuidGenerator: asClass(Uuidv4Generator).singleton()
+      })
+      .register({
+        IndexController: asClass(ApiControllers.IndexController).singleton()
+      })
+      .register({
+        HealthCheckController: asClass(ApiControllers.HealthCheckController).singleton(),
+        healthCheckService: asClass(ApiServices.HealthCheckService).singleton()
+      })
+      .register({
+        GetActivitiesController: asClass(ApiControllers.GetActivitiesController).singleton(),
+        CreateActivityController: asClass(ApiControllers.CreateActivityController).singleton(),
+        getActivitiesService: asClass(ApiServices.GetActivitiesService).singleton(),
+        createActivityService: asClass(ApiServices.CreateActivityService).singleton(),
+        activityRepository: asClass(PrismaActivityRepository).singleton()
+      });
+  }
 
-    public invoke(): AwilixContainer {
-        return this.container;
-    }
+  public invoke(): AwilixContainer {
+    return this.container;
+  }
 }
