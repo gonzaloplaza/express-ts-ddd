@@ -7,9 +7,9 @@
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 This is another Express + TypeScript + DDD (Domain Driven Design patterns) + IoC/DI (Inversion of
-control and Dependency injection) + API REST boilerplate.
+control and Dependency injection) + Primsa ORM + API REST boilerplate.
 
-### Install
+## Installation and Configuration
 
 ```bash
 yarn install
@@ -21,13 +21,20 @@ yarn install
 cp .env.dist .env
 ```
 
-Configure PostgreSQL connection string with your own parameters inside _.env_ file:
+You have to configure local environment variables such as PostgreSQL connection string with your own
+parameters inside _.env_ file. These are the default values:
 
-```
-DATABASE_URL="postgresql://user:password@localhost:5432/mydb?schema=public"
+```env
+PORT=5000
+APP_NAME="express-ts-ddd"
+
+# Prisma supports the native connection string format for PostgreSQL, MySQL and SQLite.
+# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
+
+DATABASE_URL="postgresql://user:password@localhost:5432/dbname?schema=public"
 ```
 
-### Development (Runs on 5000 port)
+### Development with nodemon (Runs on 5000 port)
 
 ```bash
 yarn dev
@@ -46,16 +53,14 @@ yarn coverage
 yarn build
 ```
 
-### Build Docker container
+## Docker Compose
+
+This project is ready to work with **[docker-compose 3.8](https://docs.docker.com/compose/)** to
+initalize the needed stack during development process. To start working run the following commands:
 
 ```bash
-docker build --no-cache -t express-ts-ddd .
-```
-
-### Run container
-
-```bash
-docker run --rm -it -p 8080:8080 --name express-ts-ddd express-ts-ddd
+docker-compose build
+docker-compose up
 ```
 
 ### Working container endpoint (Port 8080)
@@ -77,9 +82,9 @@ Example JSON response (/health_check):
 
 ---
 
-Next steps:
+## Next steps
 
-- Adds Prisma ORM with PostgreSQL implementation
-- Adds Github CI + CI testings
-- Better documentation
-- Improve Docker for production environments and development (docker-compose)
+- [x] Adds Prisma ORM with PostgreSQL implementation
+- [x] Adds Github CI + CI testings
+- [] Better documentation
+- [] Improve Docker for production environments and development (docker-compose)

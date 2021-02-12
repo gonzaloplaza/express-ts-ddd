@@ -30,6 +30,7 @@
     "express-validator": "^6.9.2",
     "helmet": "^4.4.1",
     "morgan": "^1.10.0",
+    "prisma": "^2.16.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -51,7 +52,6 @@
     "jest-ts-auto-mock": "^2.0.0",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
-    "prisma": "^2.16.1",
     "ts-auto-mock": "^3.1.0",
     "ts-jest": "^26.5.0",
     "ts-node": "^9.1.1",
