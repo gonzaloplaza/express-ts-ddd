@@ -1,5 +1,5 @@
 import { HealthCheckService } from '../../../src/api/application/healthcheck/HealthCheckService';
-import IUuidGenerator from '../../../src/shared/domain/IUuidGenerator';
+import { IUuidGenerator } from '../../../src/shared/domain/IUuidGenerator';
 import { createMock } from 'ts-auto-mock';
 
 describe('HealthCheckService', () => {

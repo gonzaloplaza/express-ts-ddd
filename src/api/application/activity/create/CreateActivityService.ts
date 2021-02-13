@@ -1,4 +1,4 @@
-import IActivityRepository from '../../../domain/model/activity/IActivityRepository';
+import { IActivityRepository } from '../../../domain/model/activity/IActivityRepository';
 
 export type CreateActivityRequest = {
   type: string;

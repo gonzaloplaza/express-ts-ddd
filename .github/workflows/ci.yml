@@ -23,7 +23,9 @@ jobs:
             - run: npm install -g yarn
             - run: yarn --version    
             - name: Install dependencies with Yarn
-              run: yarn install 
+              run: yarn install
+            - name: Generate Prisma Client
+              run: yarn prisma generate
             - name: Build/Transpile TypeScript files to dist
               run: yarn build
             - name: Run tests

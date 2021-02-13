@@ -1,5 +1,5 @@
 import { Activity } from '@prisma/client';
-import IActivityRepository from '../../../domain/model/activity/IActivityRepository';
+import { IActivityRepository } from '../../../domain/model/activity/IActivityRepository';
 
 export type GetActivitiesResponse = Activity[];
 

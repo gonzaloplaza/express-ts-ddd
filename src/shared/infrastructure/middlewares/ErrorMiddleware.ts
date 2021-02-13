@@ -23,8 +23,13 @@ const CustomErrorHandler = (err: Error, req: Request, res: Response, next: NextF
   }
 };
 
-const GlobalErrorHandler = (err: Error, req: Request, res: Response): void => {
-  res.status(DEFAULT_HTTP_ERROR_STATUS).json({
+const GlobalErrorHandler = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response => {
+  return res.status(DEFAULT_HTTP_ERROR_STATUS).json({
     message: 'Something wrong happened :`(',
     status: DEFAULT_HTTP_ERROR_STATUS
   });

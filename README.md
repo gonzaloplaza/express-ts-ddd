@@ -25,16 +25,16 @@ You have to configure local environment variables such as PostgreSQL connection 
 parameters inside _.env_ file. These are the default values:
 
 ```env
-PORT=5000
+PORT=3000
 APP_NAME="express-ts-ddd"
 
 # Prisma supports the native connection string format for PostgreSQL, MySQL and SQLite.
 # See the documentation for all the connection string options: https://pris.ly/d/connection-strings
 
-DATABASE_URL="postgresql://user:password@localhost:5432/dbname?schema=public"
+APP_DATABASE_URL="postgresql://user:password@localhost:5432/dbname?schema=public"
 ```
 
-### Development with nodemon (Runs on 5000 port)
+### Development with nodemon (Runs on 3000 port)
 
 ```bash
 yarn dev
@@ -86,5 +86,5 @@ Example JSON response (/health_check):
 
 - [x] Adds Prisma ORM with PostgreSQL implementation
 - [x] Adds Github CI + CI testings
-- [] Better documentation
-- [] Improve Docker for production environments and development (docker-compose)
+- [ ] Better documentation
+- [ ] Improve Docker for production environments and development (docker-compose)

@@ -3,13 +3,12 @@ services:
   postgres:
     image: postgres:12
     container_name: express-ts-ddd-postgres
+    restart: unless-stopped
     environment:
       # allow anyone to connect - even without a password
       # only use for running locally or in CI/CD
       POSTGRES_HOST_AUTH_METHOD: trust
-      # create a role with name
       POSTGRES_USER: devel
-      # create database test-node-with-docker
       POSTGRES_DB: express-ts-ddd
     # postgres image per default runs on port 5432
     # we need to expose the container to the host machine so we can run our tests
@@ -23,32 +22,48 @@ services:
       # the order in which they are run is determined by the prefix
       # so always prefix your migration files with 01_, 02_, etc
       - ./etc/postgresql/seed:/docker-entrypoint-initdb.d
-
-  pgadmin4:
-    image: dpage/pgadmin4
-    container_name: express-ts-ddd-pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: dev@admin.com
-      PGADMIN_DEFAULT_PASSWORD: pgadmin1234
-    ports:
-      - "8000:80"
-    depends_on:
-      - postgres
+      - ./etc/postgresql/data:/var/lib/postgresql/data
+    networks:
+      - express-ts-ddd-network
 
   app:
+    build:
+      # This image is used for development runngin nodemon with your shared source files.
+      context: ./
+      dockerfile: ./etc/node/Dockerfile.dev
+    image: express-ts-ddd
     container_name: express-ts-ddd
-    build: .
+    restart: unless-stopped
+    working_dir: /app/
+    volumes:
+      - ./:/app
     ports:
-      - "8080:8080"
+      - "3000:3000"
+      - "9090:5555"
     environment:
-      # you need to use the container name as the db host
-      # when running in docker-compose. If you use localhost, the container
-      # would try to connect to itself
-      # https://stackoverflow.com/questions/33357567/econnrefused-for-postgres-on-nodejs-with-dockers
       APP_NAME: "express-ts-ddd"
-      DATABASE_URL: "postgresql://devel:@postgres:5432/express-ts-ddd?schema=public"
-      # this needs to be the container port on which the db runs (the right most number under ports in the postgres service)
-      # i.e. we need to specify container port and not the host port
-      DB_PORT: 5432
+      APP_DATABASE_URL: "postgresql://devel:@postgres:5432/express-ts-ddd?schema=public"
+      APP_ENV: "development"
     depends_on:
       - postgres
+    networks:
+      - express-ts-ddd-network
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./etc/nginx/Dockerfile
+    container_name: express-ts-ddd-nginx
+    environment:
+      PORT: 8080
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - express-ts-ddd-network
+    depends_on:
+      - app
+
+networks:
+  express-ts-ddd-network:
+    driver: bridge
