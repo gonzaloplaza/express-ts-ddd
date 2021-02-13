@@ -1,0 +1,69 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:12
+    container_name: express-ts-ddd-postgres
+    restart: unless-stopped
+    environment:
+      # allow anyone to connect - even without a password
+      # only use for running locally or in CI/CD
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_USER: devel
+      POSTGRES_DB: express-ts-ddd
+    # postgres image per default runs on port 5432
+    # we need to expose the container to the host machine so we can run our tests
+    # if you also run Postgres locally, change the docker host port to something else
+    # and update your index.js file inside the config folder
+    ports:
+      - "2345:5432"
+    volumes:
+      # docker will run SQL files that are copied to /docker-entrypoint-initdb.d automatically
+      # this gives us an easy way to run migrations / create db tables
+      # the order in which they are run is determined by the prefix
+      # so always prefix your migration files with 01_, 02_, etc
+      - ./etc/postgresql/seed:/docker-entrypoint-initdb.d
+      - ./etc/postgresql/data:/var/lib/postgresql/data
+    networks:
+      - express-ts-ddd-network
+
+  app:
+    build:
+      # This image is used for development runngin nodemon with your shared source files.
+      context: ./
+      dockerfile: ./etc/node/Dockerfile.dev
+    image: express-ts-ddd
+    container_name: express-ts-ddd
+    restart: unless-stopped
+    working_dir: /app/
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+      - "9090:5555"
+    environment:
+      APP_NAME: "express-ts-ddd"
+      APP_DATABASE_URL: "postgresql://devel:@postgres:5432/express-ts-ddd?schema=public"
+      APP_ENV: "development"
+    depends_on:
+      - postgres
+    networks:
+      - express-ts-ddd-network
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: ./etc/nginx/Dockerfile
+    container_name: express-ts-ddd-nginx
+    environment:
+      PORT: 8080
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    networks:
+      - express-ts-ddd-network
+    depends_on:
+      - app
+
+networks:
+  express-ts-ddd-network:
+    driver: bridge

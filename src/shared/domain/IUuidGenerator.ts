@@ -1,3 +1,3 @@
-export default interface IUuidGenerator {
-    generate(): string;
+export interface IUuidGenerator {
+  generate(): string;
 }

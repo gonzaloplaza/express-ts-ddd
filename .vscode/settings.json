@@ -5,12 +5,14 @@
     },
     "[typescript]": {
       "editor.formatOnSave": true,
-      "editor.formatOnPaste": true
+      "editor.formatOnPaste": true,
+      "editor.quickSuggestions":true,
+      "editor.suggestOnTriggerCharacters": true,
     },
     "[markdown]": {
       "editor.formatOnSave": true,
       "editor.wordWrap": "on",
-      "editor.renderWhitespace": "all",
-      "editor.acceptSuggestionOnEnter": "off"
-    }
+      "editor.renderWhitespace": "all"
+    },
+    "typescript.tsdk": "node_modules/typescript/lib"
   }

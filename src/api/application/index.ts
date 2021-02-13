@@ -1,3 +1,17 @@
 import { HealthCheckService } from './healthcheck/HealthCheckService';
+import {
+  GetActivitiesService,
+  GetActivitiesResponse
+} from './activity/getAll/GetActivitiesService';
+import {
+  CreateActivityService,
+  CreateActivityRequest
+} from './activity/create/CreateActivityService';
 
-export { HealthCheckService };
+export {
+  HealthCheckService,
+  GetActivitiesService,
+  GetActivitiesResponse,
+  CreateActivityService,
+  CreateActivityRequest
+};

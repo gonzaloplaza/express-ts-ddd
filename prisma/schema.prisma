@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("APP_DATABASE_URL")
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  type      String
+  content   String
+  createdAt DateTime @default(now())
+}

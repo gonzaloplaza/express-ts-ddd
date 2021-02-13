@@ -2,10 +2,6 @@
   "restartable": "rs",
   "ignore": [".git", "node_modules/", "build/", "coverage/"],
   "verbose": true,
-  "events": {
-    "restart": "kill-port 5000",
-    "crash": "kill-port 5000"
-  },
   "delay": "1000",
   "watch": ["src/", "bin/"],
   "exec": "ts-node ./bin/index.ts",
