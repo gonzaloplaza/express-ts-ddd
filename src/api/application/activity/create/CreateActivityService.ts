@@ -5,7 +5,7 @@ export type CreateActivityRequest = {
   content: string;
 };
 
-type CreateActivityResponse = void;
+export type CreateActivityResponse = void;
 
 export class CreateActivityService {
   constructor(private activityRepository: IActivityRepository) {}

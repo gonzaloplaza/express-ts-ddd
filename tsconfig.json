@@ -2,6 +2,8 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
+    "moduleResolution": "node",
+    "baseUrl": ".",
     "outDir": "./dist",
     "strict": true,
     "skipLibCheck": true,
