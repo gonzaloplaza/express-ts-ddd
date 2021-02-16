@@ -50,7 +50,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 # Configure supervisord
 COPY ./etc/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-RUN mkdir -p /app
+RUN mkdir -p /app /app/logs
 
 WORKDIR /app
 

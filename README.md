@@ -100,6 +100,5 @@ Example JSON response (/health_check):
 - [x] Adds Github CI + CI testings
 - [ ] Adds better documentation
 - [x] Docker for development (docker-compose) and production environments
-- [x] Global logger service (Winston)
-- [ ] Authentication service/endppoint
+- [x] Global logger service (Morgan + Winston)
 - [x] Integration basic testing (supertest)
