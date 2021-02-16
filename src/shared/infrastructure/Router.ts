@@ -3,15 +3,12 @@ import helmet from 'helmet';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import compression from 'compression';
+import { ErrorMiddleware } from './express/ErrorMiddleware';
 
-import {
-  RouteNotFoundErrorHandler,
-  ClientErrorHandler,
-  CustomErrorHandler,
-  GlobalErrorHandler
-} from './middlewares/ErrorMiddleware';
-
-export const Router = (apiRouter: ExpressRouter): ExpressRouter => {
+export const Router = (
+  apiRouter: ExpressRouter,
+  errorMiddleware: ErrorMiddleware
+): ExpressRouter => {
   const router = ExpressRouter();
 
   router
@@ -25,10 +22,10 @@ export const Router = (apiRouter: ExpressRouter): ExpressRouter => {
     )
     .use(compression());
   router.use(apiRouter);
-  router.use(RouteNotFoundErrorHandler);
-  router.use(ClientErrorHandler);
-  router.use(CustomErrorHandler);
-  router.use(GlobalErrorHandler);
+  router.use(errorMiddleware.routeNotFoundErrorHandler);
+  router.use(errorMiddleware.clientErrorHandler);
+  router.use(errorMiddleware.customErrorHandler);
+  router.use(errorMiddleware.globalErrorHandler);
 
   return router;
 };

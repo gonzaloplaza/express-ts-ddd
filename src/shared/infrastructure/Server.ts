@@ -1,26 +1,32 @@
-import express, { Application, Router } from 'express';
-import morgan from 'morgan';
+import express from 'express';
 import { AddressInfo } from 'net';
-import CONFIG from '../../../config';
-
-const DEFAULT_HTTP_PORT = 3000;
+import { Configuration } from '../../../config';
+import { ServerLogger } from './logger';
 
 export class Server {
-  private express: Application;
+  private express: express.Application;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: express.Router,
+    private logger: ServerLogger,
+    private config: Configuration
+  ) {
     this.express = express();
-    this.express.use(morgan('tiny'));
-    this.express.use(router);
+    this.express.use(this.logger.stream());
+    this.express.use(this.router);
   }
 
   public async start(): Promise<void> {
     return new Promise<void>((resolve) => {
-      const http = this.express.listen(CONFIG.PORT || DEFAULT_HTTP_PORT, () => {
+      const http = this.express.listen(this.config.PORT, () => {
         const { port } = http.address() as AddressInfo;
-        console.log(`🚀 Application ${CONFIG.APP_NAME} running on PORT ${port}`);
+        console.log(`🚀 Application ${this.config.APP_NAME} running on PORT ${port}`);
         resolve();
       });
     });
+  }
+
+  public invoke(): express.Application {
+    return this.express;
   }
 }

@@ -34,6 +34,7 @@ ARG NODE_ENV=development
 ENV NODE_CONFIG_STRICT_MODE=1
 ENV NODE_ENV=$NODE_ENV
 ENV APP_NAME=express-ts-ddd
+ENV APP_LOG_LEVEL=debug
 ENV PORT=3000
 ENV NGINX_PORT=8080
 
@@ -49,7 +50,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 # Configure supervisord
 COPY ./etc/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-RUN mkdir -p /app
+RUN mkdir -p /app /app/logs
 
 WORKDIR /app
 

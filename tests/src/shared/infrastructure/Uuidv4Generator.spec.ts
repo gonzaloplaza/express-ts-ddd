@@ -1,5 +1,5 @@
-import { Container } from '../../../src/shared/infrastructure/Container';
-import { Uuidv4Generator } from '../../../src/shared/infrastructure/uuid';
+import { Container } from '../../../../src/shared/infrastructure/Container';
+import { Uuidv4Generator } from '../../../../src/shared/infrastructure/uuid';
 import { version as uuidVersion } from 'uuid';
 import { validate as uuidValidate } from 'uuid';
 

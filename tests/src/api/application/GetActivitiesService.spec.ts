@@ -1,5 +1,5 @@
-import { IActivityRepository } from '../../../src/api/domain/model/activity/IActivityRepository';
-import { GetActivitiesService } from '../../../src/api/application';
+import { IActivityRepository } from '../../../../src/api/domain/model/activity/IActivityRepository';
+import { GetActivitiesService } from '../../../../src/api/application';
 import { createMock } from 'ts-auto-mock';
 
 describe('GetActivitiesService', () => {

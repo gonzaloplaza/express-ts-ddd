@@ -1,9 +1,9 @@
 # Express-TS-DDD REST API
 
-[![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
+[![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://www.typescriptlang.org/)
 ![GitHub Repo Size](https://img.shields.io/github/repo-size/gonzaloplaza/express-ts-ddd)
 [![Github CI](https://github.com/gonzaloplaza/express-ts-ddd/workflows/ci/badge.svg)](https://github.com/gonzaloplaza/express-ts-ddd/actions)
-[![Known Vulnerabilities](https://snyk.io/test/github/gonzaloplaza/express-ts-ddd/badge.svg)](https://snyk.io/test/gonzaloplaza/express-ts-ddd/{repo})
+[![Known Vulnerabilities](https://snyk.io/test/github/gonzaloplaza/express-ts-ddd/badge.svg)](https://snyk.io/test/github/gonzaloplaza/express-ts-ddd)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 This is another Express + TypeScript + DDD (Domain Driven Design patterns) + IoC/DI (Inversion of
@@ -13,6 +13,7 @@ control and Dependency injection) + Primsa ORM + API REST boilerplate.
 
 ```bash
 yarn install
+yarn prisma generate
 ```
 
 ### Generate .env file
@@ -32,6 +33,7 @@ APP_NAME="express-ts-ddd"
 # See the documentation for all the connection string options: https://pris.ly/d/connection-strings
 
 APP_DATABASE_URL="postgresql://user:password@localhost:5432/dbname?schema=public"
+APP_LOG_LEVEL="debug"
 ```
 
 ### Development with nodemon (Runs on 3000 port)
@@ -51,6 +53,16 @@ yarn coverage
 
 ```bash
 yarn build
+```
+
+### Access Prisma Studio (Database preview for dev)
+
+We are using [Prisma ORM](https://prisma.io) to handle database connections, migrations, code schema
+management and also its studio web UI to preview database content in development environment. Please
+check [Prisma documentation](https://www.prisma.io/docs/) for more detailed information.
+
+```bash
+yarn prisma studio
 ```
 
 ## Docker Compose
@@ -86,5 +98,7 @@ Example JSON response (/health_check):
 
 - [x] Adds Prisma ORM with PostgreSQL implementation
 - [x] Adds Github CI + CI testings
-- [ ] Better documentation
-- [ ] Improve Docker for production environments and development (docker-compose)
+- [ ] Adds better documentation
+- [x] Docker for development (docker-compose) and production environments
+- [x] Global logger service (Morgan + Winston)
+- [x] Integration basic testing (supertest)

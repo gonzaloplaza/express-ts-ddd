@@ -44,6 +44,7 @@ services:
       APP_NAME: "express-ts-ddd"
       APP_DATABASE_URL: "postgresql://devel:@postgres:5432/express-ts-ddd?schema=public"
       APP_ENV: "development"
+      APP_LOG_LEVEL: "debug"
     depends_on:
       - postgres
     networks:
