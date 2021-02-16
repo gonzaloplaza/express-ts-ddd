@@ -1,14 +1,18 @@
 import express from 'express';
-import morgan from 'morgan';
 import { AddressInfo } from 'net';
 import { Configuration } from '../../../config';
+import { ServerLogger } from './logger';
 
 export class Server {
   private express: express.Application;
 
-  constructor(private router: express.Router, private config: Configuration) {
+  constructor(
+    private router: express.Router,
+    private logger: ServerLogger,
+    private config: Configuration
+  ) {
     this.express = express();
-    this.express.use(morgan('tiny'));
+    this.express.use(this.logger.handle());
     this.express.use(this.router);
   }
 
@@ -20,5 +24,9 @@ export class Server {
         resolve();
       });
     });
+  }
+
+  public invoke(): express.Application {
+    return this.express;
   }
 }

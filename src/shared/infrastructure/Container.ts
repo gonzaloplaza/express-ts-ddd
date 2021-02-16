@@ -7,7 +7,6 @@ import {
   asValue
 } from 'awilix';
 import { Server } from './Server';
-import { Kernel } from './Kernel';
 import { Router } from './Router';
 
 //Import injectables from api bounded context
@@ -20,7 +19,7 @@ import { Uuidv4Generator } from './uuid';
 import { PrismaActivityRepository } from '../../api/infrastructure/persistence/prisma/PrismaActivityRepository';
 import { ApiRouter } from '../../api/infrastructure/express/router';
 import { PrismaClientInstance } from '../infrastructure/prisma';
-import { WinstonLogger } from './logger';
+import { ServerLogger } from './logger';
 import { config } from '../../../config';
 
 export class Container {
@@ -39,10 +38,9 @@ export class Container {
       .register({
         //core components
         server: asClass(Server).singleton(),
-        app: asClass(Kernel).singleton(),
         config: asValue(config),
         router: asFunction(Router).singleton(),
-        logger: asClass(WinstonLogger).singleton(),
+        logger: asClass(ServerLogger).singleton(),
         db: asFunction(PrismaClientInstance).singleton()
       })
       .register({

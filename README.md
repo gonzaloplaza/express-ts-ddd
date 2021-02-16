@@ -1,6 +1,6 @@
 # Express-TS-DDD REST API
 
-[![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://github.com/ellerbrock/typescript-badges/)
+[![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://www.typescriptlang.org/)
 ![GitHub Repo Size](https://img.shields.io/github/repo-size/gonzaloplaza/express-ts-ddd)
 [![Github CI](https://github.com/gonzaloplaza/express-ts-ddd/workflows/ci/badge.svg)](https://github.com/gonzaloplaza/express-ts-ddd/actions)
 [![Known Vulnerabilities](https://snyk.io/test/github/gonzaloplaza/express-ts-ddd/badge.svg)](https://snyk.io/test/github/gonzaloplaza/express-ts-ddd)
@@ -100,6 +100,6 @@ Example JSON response (/health_check):
 - [x] Adds Github CI + CI testings
 - [ ] Adds better documentation
 - [x] Docker for development (docker-compose) and production environments
-- [ ] Global logger service (Winston)
+- [x] Global logger service (Winston)
 - [ ] Authentication service/endppoint
-- [ ] End2End testing (supertest)
+- [x] Integration basic testing (supertest)

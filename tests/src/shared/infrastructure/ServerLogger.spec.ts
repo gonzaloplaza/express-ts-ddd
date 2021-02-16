@@ -1,8 +1,8 @@
-import { Container } from '../../../src/shared/infrastructure/Container';
-import { WinstonLogger } from '../../../src/shared/infrastructure/logger';
+import { Container } from '../../../../src/shared/infrastructure/Container';
+import { ServerLogger } from '../../../../src/shared/infrastructure/logger';
 
 const container = new Container();
-const logger = container.invoke().resolve<WinstonLogger>('logger');
+const logger = container.invoke().resolve<ServerLogger>('logger');
 
 describe('Winston Logger', () => {
   it('should execute info function to register a log', () => {
