@@ -12,7 +12,7 @@ export class Server {
     private config: Configuration
   ) {
     this.express = express();
-    this.express.use(this.logger.handle());
+    this.express.use(this.logger.stream());
     this.express.use(this.router);
   }
 

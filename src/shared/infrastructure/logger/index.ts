@@ -1,5 +1,5 @@
 import { ILogger } from 'src/shared/domain/ILogger';
-import { createLogger, transports, Logger } from 'winston';
+import { createLogger, format, transports, Logger } from 'winston';
 import { Configuration } from '../../../../config';
 import appRoot from 'app-root-path';
 import path from 'path';
@@ -34,16 +34,29 @@ export class ServerLogger implements ILogger {
       }
     };
 
+    const loggerTransports = {
+      console: new transports.Console({
+        format: format.combine(format.colorize(), format.simple())
+      }),
+      info: new transports.File(options.infofile),
+      error: new transports.File(options.errorfile)
+    };
+
     this.logger = createLogger({
-      level: this.config.APP_LOG_LEVEL || 'debug',
-      transports: [new transports.File(options.infofile), new transports.File(options.errorfile)],
+      level: this.config.APP_LOG_LEVEL || 'info',
+      format: format.combine(
+        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        format.errors({ stack: true }),
+        format.splat(),
+        format.json()
+      ),
+      transports: [loggerTransports.console, loggerTransports.info, loggerTransports.error],
       exitOnError: false
     });
   }
 
-  public handle(): Handler {
-    const format = this.config.NODE_ENV !== 'production' ? 'dev' : 'combined';
-    return morgan(format, {
+  public stream(): Handler {
+    return morgan('combined', {
       stream: {
         write: (message: string): void => {
           this.info(message.trim());
