@@ -74,7 +74,7 @@ export class ServerLogger implements ILogger {
   }
 
   public error(message: string): void {
-    this.logger.info(message);
+    this.logger.error(message);
   }
 
   public warning(message: string): void {
