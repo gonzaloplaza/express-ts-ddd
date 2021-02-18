@@ -5,7 +5,11 @@ const DEV: Configuration = {
   PORT: +(process.env.PORT || 3000),
   APP_NAME: process.env.APP_NAME || 'express-ts-ddd',
   APP_DATABASE_URL: process.env.APP_DATABASE_URL || '',
-  APP_LOG_LEVEL: process.env.APP_LOG_LEVEL || 'debug'
+  APP_LOG_LEVEL: process.env.APP_LOG_LEVEL || 'debug',
+  APP_COGNITO: {
+    USER_POOL_ID: process.env.COGNITO_USER_POOL || '',
+    CLIENT_ID: process.env.COGNITO_CLIENT_ID || ''
+  }
 };
 
 export default DEV;

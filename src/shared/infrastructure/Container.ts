@@ -21,6 +21,7 @@ import { ApiRouter } from '../../api/infrastructure/express/router';
 import { PrismaClientInstance } from '../infrastructure/prisma';
 import { ServerLogger } from './logger';
 import { config } from '../../../config';
+import { CognitoAuthenticator } from '../../api/infrastructure/authentication/cognito';
 
 export class Container {
   private container: AwilixContainer;
@@ -56,6 +57,13 @@ export class Container {
       .register({
         HealthCheckController: asClass(ApiControllers.HealthCheckController).singleton(),
         healthCheckService: asClass(ApiServices.HealthCheckService).singleton()
+      })
+      .register({
+        PostAuthenticationController: asClass(
+          ApiControllers.PostAuthenticationController
+        ).singleton(),
+        authenticationService: asClass(ApiServices.AuthenticationService).singleton(),
+        authenticator: asClass(CognitoAuthenticator).singleton()
       })
       .register({
         GetActivitiesController: asClass(ApiControllers.GetActivitiesController).singleton(),

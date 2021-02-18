@@ -1,10 +1,8 @@
-import { Container } from '../../../../src/shared/infrastructure/Container';
 import { Uuidv4Generator } from '../../../../src/shared/infrastructure/uuid';
 import { version as uuidVersion } from 'uuid';
 import { validate as uuidValidate } from 'uuid';
 
-const container = new Container();
-const service = container.invoke().resolve<Uuidv4Generator>('uuidGenerator');
+const service = new Uuidv4Generator();
 
 describe('Uuidv4 generator', () => {
   it('should obtain a valid uuidv4 string value', () => {

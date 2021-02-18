@@ -13,6 +13,10 @@ export type Configuration = {
   APP_NAME: string;
   APP_DATABASE_URL: string;
   APP_LOG_LEVEL: string;
+  APP_COGNITO: {
+    USER_POOL_ID: string;
+    CLIENT_ID: string;
+  };
 };
 
 let currentConfig: Configuration = DEVELOPMENT;
