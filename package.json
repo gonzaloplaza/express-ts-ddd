@@ -20,7 +20,7 @@
     "start": "ts-node ./bin/index.ts",
     "build": "rm -rf ./dist/ && tsc -p .",
     "studio": "prisma studio",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "coverage": "jest --coverage"
   },
   "dependencies": {

@@ -1,7 +1,7 @@
-import { Configuration } from 'config';
+import { Configuration } from '../';
 
 const DEV: Configuration = {
-  NODE_ENV: process.env.NODE_ENV || 'development',
+  NODE_ENV: 'development',
   PORT: +(process.env.PORT || 3000),
   APP_NAME: process.env.APP_NAME || 'express-ts-ddd',
   APP_DATABASE_URL: process.env.APP_DATABASE_URL || '',
