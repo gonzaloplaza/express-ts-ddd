@@ -4,5 +4,5 @@ import {
 } from '../../../application/authentication/AuthenticationService';
 
 export interface IAuthenticator {
-  auth(authRequest: AuthenticationRequest): Promise<AuthenticationResponse>;
+  auth(t: AuthenticationRequest): Promise<AuthenticationResponse>;
 }

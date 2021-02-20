@@ -13,6 +13,7 @@ export class CreateActivityService {
   public async invoke(
     createActivityRequest: CreateActivityRequest
   ): Promise<CreateActivityResponse> {
+    console.log(createActivityRequest);
     await this.activityRepository.create(createActivityRequest.type, createActivityRequest.content);
   }
 }

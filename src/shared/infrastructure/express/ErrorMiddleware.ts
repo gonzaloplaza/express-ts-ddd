@@ -17,7 +17,9 @@ export class ErrorMiddleware {
     res: Response,
     next: NextFunction
   ): void => {
-    next(err);
+    if (!res.headersSent) {
+      next(err);
+    }
   };
 
   public customErrorHandler = (
@@ -45,7 +47,6 @@ export class ErrorMiddleware {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     next: NextFunction
   ): Response => {
-    this.logger.error(err.message);
     return res.status(this.defaultHttpErrorCode).json({
       message: 'Something wrong happened :`(',
       status: this.defaultHttpErrorCode

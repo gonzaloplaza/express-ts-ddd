@@ -16,6 +16,7 @@ export type Configuration = {
   APP_COGNITO: {
     USER_POOL_ID: string;
     CLIENT_ID: string;
+    REGION: string;
   };
 };
 

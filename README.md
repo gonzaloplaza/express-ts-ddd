@@ -37,6 +37,7 @@ APP_LOG_LEVEL="debug"
 
 COGNITO_USER_POOL="YourAwsCognitoUserPoolID"
 COGNITO_CLIENT_ID="YourAwsCognitoClientId"
+COGNITO_REGION="YourAwsCognitoRegion"
 
 ```
 

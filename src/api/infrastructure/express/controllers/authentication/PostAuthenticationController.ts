@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { ErrorHandler } from '../../../../../shared/domain/ErrorHandler';
 import { RequestValidator } from '../../../../../shared/infrastructure/express/RequestValidator';
-import { check } from 'express-validator';
+import { body } from 'express-validator';
 import {
   AuthenticationService,
   AuthenticationResponse
@@ -10,7 +10,13 @@ import {
 export class PostAuthenticationController {
   constructor(private authenticationService: AuthenticationService) {}
 
-  public async invoke(req: Request, res: Response, next: NextFunction): Promise<Response | any> {
+  public validate = [
+    body('username').trim().normalizeEmail().isEmail().withMessage('must be a valid email address'),
+    body('password').trim().isLength({ min: 6 }).withMessage('must be at least 6 chars long'),
+    RequestValidator
+  ];
+
+  public async invoke(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       const authenticationResponse: AuthenticationResponse = await this.authenticationService.invoke(
         {
@@ -24,14 +30,4 @@ export class PostAuthenticationController {
       next(new ErrorHandler('Invalid authentication', 401));
     }
   }
-
-  public validate = [
-    check('username')
-      .trim()
-      .normalizeEmail()
-      .isEmail()
-      .withMessage('must be a valid email address'),
-    check('password').trim().isLength({ min: 6 }).withMessage('must be at least 6 chars long'),
-    RequestValidator
-  ];
 }

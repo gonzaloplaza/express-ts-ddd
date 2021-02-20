@@ -8,7 +8,8 @@ const PRO: Configuration = {
   APP_LOG_LEVEL: process.env.APP_LOG_LEVEL || 'info',
   APP_COGNITO: {
     USER_POOL_ID: process.env.COGNITO_USER_POOL || '',
-    CLIENT_ID: process.env.COGNITO_CLIENT_ID || ''
+    CLIENT_ID: process.env.COGNITO_CLIENT_ID || '',
+    REGION: process.env.COGNITO_REGION || ''
   }
 };
 
