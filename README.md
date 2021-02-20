@@ -114,4 +114,4 @@ Example JSON response (/health_check):
 - [x] Docker for development (docker-compose) and production environments
 - [x] Global logger service (Morgan + Winston)
 - [x] Integration basic testing (supertest)
-- [ ] Authentication service with Cognito
+- [x] Authentication service with Cognito
