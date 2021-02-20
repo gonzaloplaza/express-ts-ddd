@@ -21,6 +21,10 @@ import { ApiRouter } from '../../api/infrastructure/express/router';
 import { PrismaClientInstance } from '../infrastructure/prisma';
 import { ServerLogger } from './logger';
 import { config } from '../../../config';
+import {
+  CognitoAuthenticator,
+  CognitoAuthorizer
+} from '../../api/infrastructure/authentication/cognito';
 
 export class Container {
   private container: AwilixContainer;
@@ -51,15 +55,23 @@ export class Container {
         uuidGenerator: asClass(Uuidv4Generator).singleton()
       })
       .register({
-        IndexController: asClass(ApiControllers.IndexController).singleton()
+        indexController: asClass(ApiControllers.IndexController).singleton()
       })
       .register({
-        HealthCheckController: asClass(ApiControllers.HealthCheckController).singleton(),
+        healthCheckController: asClass(ApiControllers.HealthCheckController).singleton(),
         healthCheckService: asClass(ApiServices.HealthCheckService).singleton()
       })
       .register({
-        GetActivitiesController: asClass(ApiControllers.GetActivitiesController).singleton(),
-        CreateActivityController: asClass(ApiControllers.CreateActivityController).singleton(),
+        postAuthenticationController: asClass(
+          ApiControllers.PostAuthenticationController
+        ).singleton(),
+        authenticationService: asClass(ApiServices.AuthenticationService).singleton(),
+        authenticator: asClass(CognitoAuthenticator).singleton(),
+        authorizer: asClass(CognitoAuthorizer).singleton()
+      })
+      .register({
+        getActivitiesController: asClass(ApiControllers.GetActivitiesController).singleton(),
+        createActivityController: asClass(ApiControllers.CreateActivityController).singleton(),
         getActivitiesService: asClass(ApiServices.GetActivitiesService).singleton(),
         createActivityService: asClass(ApiServices.CreateActivityService).singleton(),
         activityRepository: asClass(PrismaActivityRepository).singleton()

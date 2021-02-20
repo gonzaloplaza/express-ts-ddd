@@ -34,6 +34,11 @@ APP_NAME="express-ts-ddd"
 
 APP_DATABASE_URL="postgresql://user:password@localhost:5432/dbname?schema=public"
 APP_LOG_LEVEL="debug"
+
+COGNITO_USER_POOL="YourAwsCognitoUserPoolID"
+COGNITO_CLIENT_ID="YourAwsCognitoClientId"
+COGNITO_REGION="YourAwsCognitoRegion"
+
 ```
 
 ### Development with nodemon (Runs on 3000 port)
@@ -64,6 +69,13 @@ check [Prisma documentation](https://www.prisma.io/docs/) for more detailed info
 ```bash
 yarn prisma studio
 ```
+
+### Authentication with AWS Cognito
+
+AWS Cognito is implemented as default authentication service. Please, check documentation on how to
+configure it for more details: https://aws.amazon.com/cognito/getting-started/
+
+---
 
 ## Docker Compose
 
@@ -102,3 +114,4 @@ Example JSON response (/health_check):
 - [x] Docker for development (docker-compose) and production environments
 - [x] Global logger service (Morgan + Winston)
 - [x] Integration basic testing (supertest)
+- [x] Authentication service with Cognito

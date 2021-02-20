@@ -1,15 +1,11 @@
-import { Container } from '../../../../src/shared/infrastructure/Container';
 import { ServerLogger } from '../../../../src/shared/infrastructure/logger';
+import { createMock } from 'ts-auto-mock';
+import faker from 'faker';
 
-const container = new Container();
-const logger = container.invoke().resolve<ServerLogger>('logger');
+const loggerMock = createMock<ServerLogger>();
 
-describe('Winston Logger', () => {
+describe('ServerLogger', () => {
   it('should execute info function to register a log', () => {
-    jest.spyOn(logger, 'info');
-    const testMessage = 'This is a test';
-    logger.info(testMessage);
-    expect(logger.info).toHaveBeenCalledWith(testMessage);
-    expect(logger.info).toHaveBeenCalledTimes(1);
+    expect(loggerMock.info(faker.random.words())).toBe(undefined);
   });
 });
