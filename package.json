@@ -21,7 +21,7 @@
     "build": "rm -rf ./dist/ && tsc -p .",
     "studio": "prisma studio",
     "test": "jest --detectOpenHandles",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage --detectOpenHandles"
   },
   "dependencies": {
     "@prisma/client": "^2.16.1",
