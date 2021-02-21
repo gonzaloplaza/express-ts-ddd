@@ -21,7 +21,6 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
             - run: npm install -g yarn
-            - run: yarn --version
             - name: Install dependencies with Yarn
               run: yarn install
             - name: Generate Prisma Client
@@ -29,8 +28,16 @@ jobs:
             - name: Build/Transpile TypeScript files to dist
               run: yarn build
             - name: Run tests
-              run: yarn test
+              run: yarn coverage
               env:
                   COGNITO_USER_POOL: ${{ secrets.COGNITO_USER_POOL }}
                   COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
                   COGNITO_REGION: ${{ secrets.COGNITO_REGION }}
+            - name: Upload coverage result to Codecov
+              uses: codecov/codecov-action@v1
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  file: ./coverage/clover.xml
+                  flags: tests
+                  name: codecov-umbrella
+                  fail_ci_if_error: true

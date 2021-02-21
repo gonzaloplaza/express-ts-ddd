@@ -3,7 +3,7 @@
 [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://www.typescriptlang.org/)
 ![GitHub Repo Size](https://img.shields.io/github/repo-size/gonzaloplaza/express-ts-ddd)
 [![Github CI](https://github.com/gonzaloplaza/express-ts-ddd/workflows/ci/badge.svg)](https://github.com/gonzaloplaza/express-ts-ddd/actions)
-[![Known Vulnerabilities](https://snyk.io/test/github/gonzaloplaza/express-ts-ddd/badge.svg)](https://snyk.io/test/github/gonzaloplaza/express-ts-ddd)
+[![codecov](https://codecov.io/gh/gonzaloplaza/express-ts-ddd/branch/master/graph/badge.svg?token=K1F7JAY6MF)](https://codecov.io/gh/gonzaloplaza/express-ts-ddd)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 This is another Express + TypeScript + DDD (Domain Driven Design patterns) + IoC/DI (Inversion of
@@ -115,3 +115,4 @@ Example JSON response (/health_check):
 - [x] Global logger service (Morgan + Winston)
 - [x] Integration basic testing (supertest)
 - [x] Authentication service with Cognito
+- [x] Adds test coverage report, codecov integration
