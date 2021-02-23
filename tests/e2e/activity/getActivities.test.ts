@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { app } from './bootstrap';
+import { app } from '../bootstrap';
 
 describe('GET /api/v1/activities', () => {
   it('should get unauthorized 401 error response with no token', async () => {

@@ -20,28 +20,31 @@ export class CognitoAuthorizer implements IAuthorizer<Request, Response, NextFun
     }
   }
 
-  public authorize: Middleware = (req: Request, res: Response, next: NextFunction): void => {
+  public authorize: Middleware = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     const { authorization } = req.headers;
 
     const tokenArray = typeof authorization === 'string' ? authorization.split(' ') : [];
     const token = tokenArray[1];
 
     try {
-      this.jwtVerifier.verify(token).then((validation) => {
+      await this.jwtVerifier.verify(token).then((validation) => {
         if (!validation.isValid) {
           //Expired token
-          //res.status(401).json({ code: 401, message: `Unauthorized: ${validation.error}` });
-          next(new ErrorHandler(`Unauthorized: ${validation.error}`, 401));
+          return next(new ErrorHandler(`Unauthorized: ${validation.error}`, 401));
         }
 
         //Adds cognito userId to request headers
         req.headers.user_id = validation.userName;
 
-        next();
+        return next();
       });
     } catch (err) {
       //res.status(401).json({ code: 401, message: `Unauthorized` });
-      next(new ErrorHandler(`Unauthorized: ${err.message}`, 401));
+      return next(new ErrorHandler(`Unauthorized: ${err.message}`, 401));
     }
   };
 }

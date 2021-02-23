@@ -1,5 +1,5 @@
-import { CognitoJwtVerifier } from '../../../../src/api/infrastructure/authentication/cognito/CognitoJwtVerifier';
-import { config } from '../../../../config';
+import { CognitoJwtVerifier } from '../../../../../src/api/infrastructure/authentication/cognito/CognitoJwtVerifier';
+import { config } from '../../../../../config';
 
 const cognitoJwtVerifier = new CognitoJwtVerifier(
   config.APP_COGNITO.USER_POOL_ID,

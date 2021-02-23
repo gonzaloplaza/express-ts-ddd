@@ -1,4 +1,4 @@
-import { PrismaActivityRepository } from '../../../../src/api/infrastructure/persistence/prisma/PrismaActivityRepository';
+import { PrismaActivityRepository } from '../../../../../../src/api/infrastructure/persistence/prisma/PrismaActivityRepository';
 import { createMock } from 'ts-auto-mock';
 import faker from 'faker';
 
