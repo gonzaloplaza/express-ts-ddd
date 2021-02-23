@@ -1,10 +1,12 @@
 import express from 'express';
 import { AddressInfo } from 'net';
+import * as http from 'http';
 import { Configuration } from '../../../config';
 import { ServerLogger } from './logger';
 
 export class Server {
   private express: express.Application;
+  private http: http.Server | any;
 
   constructor(
     private router: express.Router,
@@ -16,17 +18,22 @@ export class Server {
     this.express.use(this.router);
   }
 
-  public async start(): Promise<void> {
+  public start = async (): Promise<void> => {
     return new Promise<void>((resolve) => {
-      const http = this.express.listen(this.config.PORT, () => {
-        const { port } = http.address() as AddressInfo;
+      this.http = this.express.listen(this.config.PORT, () => {
+        const { port } = this.http.address() as AddressInfo;
         console.log(`🚀 Application ${this.config.APP_NAME} running on PORT ${port}`);
         resolve();
       });
     });
-  }
+  };
 
-  public invoke(): express.Application {
+  public stop = async (): Promise<void> => {
+    console.log('Stopping http server...');
+    this.http.close();
+  };
+
+  public invoke = (): express.Application => {
     return this.express;
-  }
+  };
 }
