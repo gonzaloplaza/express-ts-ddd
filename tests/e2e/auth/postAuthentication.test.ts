@@ -1,5 +1,5 @@
 import request from 'supertest';
-import { app } from './bootstrap';
+import { app } from '../bootstrap';
 import faker from 'faker';
 
 describe('POST /auth', () => {
