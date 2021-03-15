@@ -959,10 +959,10 @@ ajv@^7.0.2:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-amazon-cognito-identity-js@^4.5.10:
-  version "4.5.12"
-  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-4.5.12.tgz#d86d12d0d8a05952d347f4f9d278b20437e0e00f"
-  integrity sha512-YMlLuMRejWhsHvuPHzFuKBJrPXieRryP0jQ1mwrJaD7h6w9R/89i5O+/pbc9sSw7p1S+YcKBNPXP/DjqLiJxYg==
+amazon-cognito-identity-js@^4.5.14:
+  version "4.5.14"
+  resolved "https://registry.yarnpkg.com/amazon-cognito-identity-js/-/amazon-cognito-identity-js-4.5.14.tgz#58c0b687387008b4bb27bcf3f4bb40711aea772e"
+  integrity sha512-Q6NMHMrHFM/qUi8CGDVI+mW/NM5RX7+BHyw7KLPNJ6e+w1XR+nRrGBKHCEA60JQUujFqxWxh2o+tVHHqrA5GZg==
   dependencies:
     buffer "4.9.2"
     crypto-js "^3.3.0"
