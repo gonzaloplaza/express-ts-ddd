@@ -1,7 +1,7 @@
-FROM nginx:1.17-alpine
+FROM nginx:1.18-alpine
 
 LABEL Maintainer="Gonzalo Plaza <gonzalo@verize.com>" \
-      Description="Lightweight container with Nginx 1.16 & Node 14 based on Alpine Linux"
+      Description="Lightweight container with Nginx 1.18 & Node 14 based on Alpine Linux"
 
 ARG PORT=8080
 ENV PORT=${PORT}

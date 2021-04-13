@@ -22,7 +22,7 @@ services:
       # the order in which they are run is determined by the prefix
       # so always prefix your migration files with 01_, 02_, etc
       - ./etc/postgresql/seed:/docker-entrypoint-initdb.d
-      - ./etc/postgresql/data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     networks:
       - express-ts-ddd-network
 
@@ -64,6 +64,9 @@ services:
       - express-ts-ddd-network
     depends_on:
       - app
+
+volumes:
+  postgres-data:
 
 networks:
   express-ts-ddd-network:
