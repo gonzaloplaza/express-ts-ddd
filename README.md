@@ -35,9 +35,9 @@ APP_NAME="express-ts-ddd"
 APP_DATABASE_URL="postgresql://user:password@localhost:5432/dbname?schema=public"
 APP_LOG_LEVEL="debug"
 
-COGNITO_USER_POOL="YourAwsCognitoUserPoolID"
-COGNITO_CLIENT_ID="YourAwsCognitoClientId"
-COGNITO_REGION="YourAwsCognitoRegion"
+COGNITO_USER_POOL="your_cognito_user_pool"
+COGNITO_CLIENT_ID="your_cognito_client_id"
+COGNITO_REGION="your-aws-region-x"
 
 ```
 
@@ -77,7 +77,7 @@ configure it for more details: https://aws.amazon.com/cognito/getting-started/
 
 ---
 
-## Docker Compose
+### Docker Compose
 
 This project is ready to work with **[docker-compose 3.8](https://docs.docker.com/compose/)** to
 initalize the needed stack during development process. To start working run the following commands:
@@ -87,7 +87,7 @@ docker-compose build
 docker-compose up
 ```
 
-### Working container endpoint (Port 8080)
+### Working docker compose environment (Port 8080)
 
 ```bash
 curl http://localhost:8080
@@ -104,6 +104,26 @@ Example JSON response (/health_check):
 }
 ```
 
+### Build Docker image for production
+
+You can build an optimized Docker production-ready image with the standard command:
+
+```sh
+docker build -t express-ts-ddd .
+```
+
+And then run the container passing environment variables within the initialization:
+
+```sh
+docker run --rm -it -p 3000:3000 \
+  -e NODE_ENV=production \
+  -e APP_DATABASE_URL="postgresql://user:password@host:5432/dbname?schema=public" \
+  -e COGNITO_USER_POOL="your_cognito_user_pool" \
+  -e COGNITO_CLIENT_ID="your_cognito_client_id" \
+  -e COGNITO_REGION="your-aws-region-x" \
+  --name express-ts-ddd express-ts-ddd
+```
+
 ---
 
 ## Next steps
@@ -111,6 +131,7 @@ Example JSON response (/health_check):
 - [x] Adds Prisma ORM with PostgreSQL implementation
 - [x] Adds Github CI + CI testings
 - [ ] Adds better documentation
+- [ ] Kubernetes support (Local environment microk8s, minikube...)
 - [x] Docker for development (docker-compose) and production environments
 - [x] Global logger service (Morgan + Winston)
 - [x] Integration basic testing (supertest)
