@@ -26,7 +26,7 @@
   "dependencies": {
     "@prisma/client": "^2.16.1",
     "add": "^2.0.6",
-    "amazon-cognito-identity-js": "^4.5.10",
+    "amazon-cognito-identity-js": "^4.6.2",
     "app-root-path": "^3.0.0",
     "awilix": "^4.3.1",
     "axios": "^0.21.1",
