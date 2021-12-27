@@ -39,7 +39,7 @@
     "jsonwebtoken": "^8.5.1",
     "jwk-to-pem": "^2.0.4",
     "morgan": "^1.10.0",
-    "prisma": "^2.16.1",
+    "prisma": "^3.7.0",
     "uuid": "^8.3.2",
     "winston": "^3.3.3",
     "yarn": "^1.22.10"
