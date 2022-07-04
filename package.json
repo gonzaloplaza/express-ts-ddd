@@ -24,7 +24,7 @@
     "coverage": "jest --coverage --detectOpenHandles"
   },
   "dependencies": {
-    "@prisma/client": "^2.16.1",
+    "@prisma/client": "^4.0.0",
     "add": "^2.0.6",
     "amazon-cognito-identity-js": "^4.5.10",
     "app-root-path": "^3.0.0",
