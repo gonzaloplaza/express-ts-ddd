@@ -5,7 +5,7 @@ export class PrismaActivityRepository implements IActivityRepository {
   constructor(private db: PrismaClient) {}
 
   public async all(): Promise<Activity[]> {
-    return await this.db.activity.findMany({
+    return this.db.activity.findMany({
       orderBy: {
         createdAt: 'desc'
       }
