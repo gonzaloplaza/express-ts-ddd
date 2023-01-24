@@ -12,7 +12,7 @@ export class GetActivitiesController {
   public async invoke(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       return res.json(await this.getActivitiesService.invoke());
-    } catch (err) {
+    } catch (err: any) {
       next(new ErrorHandler(err.message, 400));
     }
   }

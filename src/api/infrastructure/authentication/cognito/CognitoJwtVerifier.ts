@@ -100,7 +100,7 @@ export class CognitoJwtVerifier {
         throw new Error('Claim use is not access');
       }
       result = { userName: claim.username, clientId: claim.client_id, isValid: true };
-    } catch (error) {
+    } catch (error: any) {
       result = { userName: '', clientId: '', error: error.message, isValid: false };
     }
 

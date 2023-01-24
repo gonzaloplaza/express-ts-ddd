@@ -18,7 +18,7 @@ import { ErrorMiddleware } from './express/ErrorMiddleware';
 import { Uuidv4Generator } from './uuid';
 import { PrismaActivityRepository } from '../../api/infrastructure/persistence/prisma/PrismaActivityRepository';
 import { ApiRouter } from '../../api/infrastructure/express/router';
-import { PrismaClientInstance } from '../infrastructure/prisma';
+import { PrismaClientInstance } from './prisma';
 import { ServerLogger } from './logger';
 import { config } from '../../../config';
 import {
