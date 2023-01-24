@@ -14,7 +14,7 @@ export class CognitoAuthorizer implements IAuthorizer<Request, Response, NextFun
         this.config.APP_COGNITO.USER_POOL_ID,
         this.config.APP_COGNITO.REGION
       );
-    } catch (error) {
+    } catch (error: any) {
       console.log(error.message);
       throw new Error(error.message);
     }
@@ -42,7 +42,7 @@ export class CognitoAuthorizer implements IAuthorizer<Request, Response, NextFun
 
         return next();
       });
-    } catch (err) {
+    } catch (err: any) {
       //res.status(401).json({ code: 401, message: `Unauthorized` });
       return next(new ErrorHandler(`Unauthorized: ${err.message}`, 401));
     }
