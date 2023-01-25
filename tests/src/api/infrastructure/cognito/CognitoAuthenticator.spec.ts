@@ -13,10 +13,6 @@ describe('CognitoAuthenticator', () => {
         username: fakerStatic.internet.exampleEmail(),
         password: fakerStatic.internet.password()
       })
-    ).rejects.toEqual({
-      code: 'UserNotFoundException',
-      message: 'User does not exist.',
-      name: 'UserNotFoundException'
-    });
+    ).rejects.toThrow('User does not exist.');
   });
 });

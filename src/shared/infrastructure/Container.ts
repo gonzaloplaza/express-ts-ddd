@@ -27,7 +27,7 @@ import {
 } from '../../api/infrastructure/authentication/cognito';
 
 export class Container {
-  private container: AwilixContainer;
+  private readonly container: AwilixContainer;
 
   constructor() {
     this.container = createContainer({
