@@ -136,4 +136,4 @@ docker run --rm -it -p 3000:3000 \
 - [x] Global logger service (Morgan + Winston)
 - [x] Integration basic testing (supertest)
 - [x] Authentication service with Cognito
-- [x] Adds test coverage report, codecov integration
+- [x] Adds test coverage report, SonarCloud Scan integration
