@@ -1,6 +1,7 @@
 name: ci
 on:
     pull_request:
+        types: [opened, synchronize, reopened]
     push:
         branches:
             - "master"
@@ -16,6 +17,8 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v2
+              with:
+                fetch-depth: 0
             - name: Node.js
               uses: actions/setup-node@v1
               with:
@@ -28,16 +31,13 @@ jobs:
             - name: Build/Transpile TypeScript files to dist
               run: yarn build
             - name: Run tests
-              run: yarn coverage
+              run: yarn test --coverage
               env:
-                  COGNITO_USER_POOL: ${{ secrets.COGNITO_USER_POOL }}
-                  COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
-                  COGNITO_REGION: ${{ secrets.COGNITO_REGION }}
-            - name: Upload coverage result to Codecov
-              uses: codecov/codecov-action@v1
-              with:
-                  token: ${{ secrets.CODECOV_TOKEN }}
-                  file: ./coverage/clover.xml
-                  flags: tests
-                  name: codecov-umbrella
-                  fail_ci_if_error: true
+                COGNITO_USER_POOL: ${{ secrets.COGNITO_USER_POOL }}
+                COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
+                COGNITO_REGION: ${{ secrets.COGNITO_REGION }}
+            - name: SonarCloud Scan
+              uses: SonarSource/sonarcloud-github-action@master
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
