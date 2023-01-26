@@ -11,7 +11,7 @@ services:
       POSTGRES_USER: devel
       POSTGRES_DB: express-ts-ddd
     # postgres image per default runs on port 5432
-    # we need to expose the container to the host machine so we can run our tests
+    # we need to expose the container to the host machine, so we can run our tests
     # if you also run Postgres locally, change the docker host port to something else
     # and update your index.js file inside the config folder
     ports:
