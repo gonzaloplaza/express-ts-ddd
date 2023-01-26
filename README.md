@@ -3,7 +3,6 @@
 [![TypeScript](https://badges.frapsoft.com/typescript/code/typescript.svg?v=101)](https://www.typescriptlang.org/)
 ![GitHub Repo Size](https://img.shields.io/github/repo-size/gonzaloplaza/express-ts-ddd)
 [![Github CI](https://github.com/gonzaloplaza/express-ts-ddd/workflows/ci/badge.svg)](https://github.com/gonzaloplaza/express-ts-ddd/actions)
-[![codecov](https://codecov.io/gh/gonzaloplaza/express-ts-ddd/branch/master/graph/badge.svg?token=K1F7JAY6MF)](https://codecov.io/gh/gonzaloplaza/express-ts-ddd)
 [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 This is another Express + TypeScript + DDD (Domain Driven Design patterns) + IoC/DI (Inversion of
