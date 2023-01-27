@@ -7,12 +7,12 @@ const prismaActivityRepositoryMock = createMock<PrismaActivityRepository>();
 describe('PrismaActivityRepository', () => {
   it('should resolve an empty array from all repository function', async () => {
     expect.assertions(1);
-    expect(prismaActivityRepositoryMock.all()).resolves.toStrictEqual([]);
+    await expect(prismaActivityRepositoryMock.all()).resolves.toStrictEqual([]);
   });
 
   it('should execute activity creation method', async () => {
     expect.assertions(1);
-    expect(
+    await expect(
       prismaActivityRepositoryMock.create(faker.random.words(), faker.random.words())
     ).resolves.toBe(undefined);
   });

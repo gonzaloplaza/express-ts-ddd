@@ -1,5 +1,6 @@
 import axios from 'axios';
 import jsonwebtoken from 'jsonwebtoken';
+import { getCurrentSeconds } from '../../../../shared/infrastructure/date';
 
 // Warning: DO NOT use @types/jwk-to-pem or import for this package.
 // DO NOT remove this eslint-disbable comment.
@@ -24,7 +25,7 @@ interface TokenHeader {
   alg: string;
 }
 
-interface PublicKey {
+export interface PublicKey {
   alg: string;
   e: string;
   kid: string;
@@ -38,7 +39,7 @@ interface PublicKeyMeta {
   pem: string;
 }
 
-interface PublicKeys {
+export interface PublicKeys {
   keys: PublicKey[];
 }
 
@@ -46,7 +47,7 @@ interface MapOfKidToPublicKey {
   [key: string]: PublicKeyMeta;
 }
 
-interface Claim {
+export interface Claim {
   token_use: string;
   auth_time: number;
   iss: string;
@@ -56,7 +57,7 @@ interface Claim {
 }
 
 export class CognitoJwtVerifier {
-  private cognitoIssuer: string;
+  private readonly cognitoIssuer: string;
   private cacheKeys: MapOfKidToPublicKey | undefined;
 
   constructor(private cognitoUserPoolId: string, private cognitoRegion: string) {
@@ -89,7 +90,7 @@ export class CognitoJwtVerifier {
       }
 
       const claim = (await jsonwebtoken.verify(token, key.pem)) as Claim;
-      const currentSeconds = Math.floor(new Date().valueOf() / 1000);
+      const currentSeconds = getCurrentSeconds();
       if (currentSeconds > claim.exp || currentSeconds < claim.auth_time) {
         throw new Error('Claim is expired or invalid');
       }

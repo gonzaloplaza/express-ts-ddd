@@ -1,16 +1,16 @@
 import { Configuration } from '../';
 
-const DEV: Configuration = {
+const TEST: Configuration = {
   NODE_ENV: 'test',
-  PORT: +(process.env.PORT || 3000),
-  APP_NAME: process.env.APP_NAME || 'express-ts-test-ddd',
-  APP_DATABASE_URL: process.env.APP_DATABASE_URL || '',
-  APP_LOG_LEVEL: process.env.APP_LOG_LEVEL || 'debug',
+  PORT: 3000,
+  APP_NAME: 'express-ts-test-ddd',
+  APP_DATABASE_URL: '',
+  APP_LOG_LEVEL: 'debug',
   APP_COGNITO: {
-    USER_POOL_ID: process.env.COGNITO_USER_POOL || '',
-    CLIENT_ID: process.env.COGNITO_CLIENT_ID || '',
-    REGION: process.env.COGNITO_REGION || ''
+    USER_POOL_ID: 'test-central-1_testUserPool',
+    CLIENT_ID: 'testCognitoClientId',
+    REGION: 'test-central-1'
   }
 };
 
-export default DEV;
+export default TEST;

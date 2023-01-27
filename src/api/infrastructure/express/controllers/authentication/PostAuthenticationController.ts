@@ -18,14 +18,13 @@ export class PostAuthenticationController {
 
   public async invoke(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
-      const authenticationResponse: AuthenticationResponse = await this.authenticationService.invoke(
-        {
+      const authenticationResponse: AuthenticationResponse =
+        await this.authenticationService.invoke({
           username: req.body.username,
           password: req.body.password
-        }
-      );
-      res.setHeader('Authorization', 'Bearer ' + authenticationResponse.accessToken);
-      res.status(200).json(authenticationResponse);
+        });
+      res.setHeader('Authorization', `Bearer ${authenticationResponse.accessToken}`);
+      res.json(authenticationResponse).status(200);
     } catch (e) {
       next(new ErrorHandler('Invalid authentication', 401));
     }

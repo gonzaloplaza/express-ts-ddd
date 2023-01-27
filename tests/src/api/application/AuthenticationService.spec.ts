@@ -8,17 +8,28 @@ import {
 } from '../../../../src/api/application/authentication/AuthenticationService';
 
 describe('AuthenticatorService', () => {
-  const authenticatorMock = createMock<IAuthenticator>();
+  const mockedAuthenticatorResponse = jest.fn().mockResolvedValue({});
+  const authenticatorMock = createMock<IAuthenticator>({
+    auth: mockedAuthenticatorResponse
+  });
   const loggerMock = createMock<ILogger>();
   const authenticationService = new AuthenticationService(loggerMock, authenticatorMock);
 
   it('should return an AuthenticationResponse object', async () => {
-    const authenticationResponse: AuthenticationResponse = await authenticationService.invoke({
+    // given
+    const authenticationRequest = {
       username: faker.internet.email(),
       password: faker.internet.password()
-    });
+    };
+    const expectedAuthenticationResponse = { accessToken: 'testToken', expiresIn: 12345 };
+    mockedAuthenticatorResponse.mockResolvedValueOnce(expectedAuthenticationResponse);
 
-    expect(typeof authenticationResponse.accessToken).toBe('string');
-    expect(typeof authenticationResponse.expiresIn).toBe('number');
+    // when
+    const authenticationResponse: AuthenticationResponse = await authenticationService.invoke(
+      authenticationRequest
+    );
+
+    // then
+    expect(authenticationResponse).toStrictEqual(expectedAuthenticationResponse);
   });
 });

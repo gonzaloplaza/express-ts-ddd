@@ -24,10 +24,10 @@ RUN yarn build
 
 # Generate build container
 
-FROM node:14-alpine
+FROM node:16-alpine
 
 LABEL Maintainer="Gonzalo Plaza <gonzalo@verize.com>" \
-      Description="Lightweight container with Node 14 based on Alpine Linux"
+      Description="Lightweight container with Node 16 based on Alpine Linux"
 
 # Environment vars
 ARG NODE_ENV=development
@@ -40,6 +40,10 @@ ENV COGNITO_CLIENT_ID=""
 ENV COGNITO_REGION=""
 
 ENV PORT=3000
+
+# Configure user
+RUN addgroup -S webuser \
+    && adduser -S webuser -G webuser
 
 # Install Alpine dependencies
 RUN apk --no-cache add supervisor && \
@@ -66,6 +70,9 @@ RUN yarn prisma generate && rm -rf /app/prisma
 
 # Expose the port nginx is reachable on
 EXPOSE ${PORT}
+
+# Set the user
+USER webuser
 
 # Let supervisord start nginx && node js built app
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

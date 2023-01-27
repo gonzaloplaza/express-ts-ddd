@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { CognitoAuthorizer } from '../../../../../src/api/infrastructure/authentication/cognito';
-import { config } from '../../../../../config';
+import { config } from '../../../../../../config';
+import { CognitoAuthorizer } from '../../../../../../src/api/infrastructure/authentication/cognito';
 
 const cognitoAuthorizer = new CognitoAuthorizer(config);
 

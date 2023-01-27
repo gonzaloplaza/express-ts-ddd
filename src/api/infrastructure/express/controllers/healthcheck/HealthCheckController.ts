@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { HealthCheckService } from '../../../../application/healthcheck/HealthCheckService';
+import { HealthCheckService } from '../../../../application';
 
 export class HealthCheckController {
   constructor(private healthCheckService: HealthCheckService) {}
 
-  public invoke(req: Request, res: Response): Response {
+  public async invoke(req: Request, res: Response): Promise<Response> {
     return res.json(this.healthCheckService.invoke());
   }
 }

@@ -28,9 +28,9 @@ services:
 
   app:
     build:
-      # This image is used for development runngin nodemon with your shared source files.
+      # This image is used for development running nodemon with your shared source files.
       context: ./
-      dockerfile: ./etc/node/Dockerfile.dev
+      dockerfile: etc/node/Dockerfile
     image: express-ts-ddd
     container_name: express-ts-ddd
     restart: unless-stopped
