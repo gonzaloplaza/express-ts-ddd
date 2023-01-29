@@ -1,4 +1,3 @@
-//https://github.com/aws-amplify/amplify-js/tree/master/packages/amazon-cognito-identity-js
 import { Configuration } from '../../../../../config';
 import {
   AuthenticationRequest,
