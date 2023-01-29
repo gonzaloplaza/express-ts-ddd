@@ -13,7 +13,6 @@ export class CognitoAuthorizer implements IAuthorizer<Request, Response, NextFun
         this.config.APP_COGNITO.REGION
       );
     } catch (error: any) {
-      console.log(error.message);
       throw new Error(error.message);
     }
   }

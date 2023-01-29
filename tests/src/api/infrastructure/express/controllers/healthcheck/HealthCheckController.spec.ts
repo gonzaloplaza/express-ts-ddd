@@ -4,7 +4,7 @@ import { HealthCheckService } from '../../../../../../../src/api/application';
 import { Request, Response } from 'express';
 
 describe('Healthcheck Controller', () => {
-  it('should invoke HealthCheck Controller', () => {
+  it('should invoke HealthCheck Controller', async () => {
     // given
     const mockedHealthCheckService = createMock<HealthCheckService>({
       invoke: jest.fn().mockResolvedValueOnce({})
@@ -16,7 +16,7 @@ describe('Healthcheck Controller', () => {
     const healthCheckController = new HealthCheckController(mockedHealthCheckService);
 
     // when
-    healthCheckController.invoke(mockedRequest, mockedResponse);
+    await healthCheckController.invoke(mockedRequest, mockedResponse);
 
     // then
     expect(mockedHealthCheckService.invoke).toHaveBeenCalledTimes(1);

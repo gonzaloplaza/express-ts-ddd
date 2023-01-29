@@ -16,7 +16,7 @@ export class CreateActivityController {
         content: req.body.content
       });
 
-      return res.status(201).json();
+      return res.json().status(201);
     } catch (e) {
       next(new ErrorHandler('Error creating activity', 400));
     }

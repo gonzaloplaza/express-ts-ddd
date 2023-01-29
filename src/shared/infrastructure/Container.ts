@@ -18,7 +18,7 @@ import { ErrorMiddleware } from './express/ErrorMiddleware';
 import { Uuidv4Generator } from './uuid';
 import { PrismaActivityRepository } from '../../api/infrastructure/persistence/prisma/PrismaActivityRepository';
 import { ApiRouter } from '../../api/infrastructure/express/router';
-import { PrismaClientInstance } from './prisma';
+import { createPrismaClient } from './prisma';
 import { ServerLogger } from './logger';
 import { config } from '../../../config';
 import {
@@ -46,7 +46,7 @@ export class Container {
         config: asValue(config),
         router: asFunction(Router).singleton(),
         logger: asClass(ServerLogger).singleton(),
-        db: asFunction(PrismaClientInstance).singleton()
+        db: asFunction(createPrismaClient).singleton()
       })
       .register({
         errorMiddleware: asClass(ErrorMiddleware).singleton(),

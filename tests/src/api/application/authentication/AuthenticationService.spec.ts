@@ -1,11 +1,11 @@
-import { IAuthenticator } from '../../../../src/api/domain/model/authentication/IAuthenticator';
-import { ILogger } from '../../../../src/shared/domain/ILogger';
+import { IAuthenticator } from '../../../../../src/api/domain/model/authentication/IAuthenticator';
+import { ILogger } from '../../../../../src/shared/domain/ILogger';
 import { createMock } from 'ts-auto-mock';
 import faker from 'faker';
 import {
   AuthenticationService,
   AuthenticationResponse
-} from '../../../../src/api/application/authentication/AuthenticationService';
+} from '../../../../../src/api/application/authentication/AuthenticationService';
 
 describe('AuthenticatorService', () => {
   const mockedAuthenticatorResponse = jest.fn().mockResolvedValue({});

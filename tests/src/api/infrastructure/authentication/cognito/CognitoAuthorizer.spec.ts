@@ -1,37 +1,37 @@
 import { NextFunction, Request, Response } from 'express';
 import { config } from '../../../../../../config';
 import { CognitoAuthorizer } from '../../../../../../src/api/infrastructure/authentication/cognito';
-
-const cognitoAuthorizer = new CognitoAuthorizer(config);
+import { createMock } from 'ts-auto-mock';
+import { jwtFixture } from '../../../../../__fixtures__/jwtFixture';
 
 describe('CognitoAuthorizer', () => {
-  let mockRequest: Partial<Request>;
-  let mockResponse: Partial<Response>;
-  let mockNextFunction: NextFunction;
-
-  beforeEach(() => {
-    mockRequest = {
-      headers: {
-        authorization: 'Bearer invalidToken'
-      }
-    };
-    mockResponse = {
-      json: jest.fn()
-    };
-    mockNextFunction = jest.fn(function () {
-      return;
+  it('should authorize a token', async () => {
+    // given
+    const mockedRequest = createMock<Request>({
+      headers: { authorization: `Bearer ${jwtFixture()}` }
     });
+    const mockedResponse: Response = createMock<Response>({});
+    const mockedNext = jest.fn();
+
+    const cognitoAuthorizer = new CognitoAuthorizer(config);
+
+    await cognitoAuthorizer.authorize(mockedRequest, mockedResponse, mockedNext);
+
+    expect(mockedNext).toHaveBeenCalledTimes(1);
   });
 
-  it('should call authorizer middleware nextFunction', async () => {
-    jest.spyOn(cognitoAuthorizer, 'authorize');
-    await cognitoAuthorizer.authorize(
-      mockRequest as Request,
-      mockResponse as Response,
-      mockNextFunction
-    );
+  it('should authorize a token', async () => {
+    // given
+    const mockedRequest = createMock<Request>({
+      headers: { authorization: `Bearer Invalid` }
+    });
+    const mockedResponse: Response = createMock<Response>({});
+    const mockedNext = jest.fn();
 
-    expect(cognitoAuthorizer.authorize).toHaveBeenCalledTimes(1);
-    expect(mockNextFunction).toBeCalledTimes(1);
+    const cognitoAuthorizer = new CognitoAuthorizer(config);
+
+    await cognitoAuthorizer.authorize(mockedRequest, mockedResponse, mockedNext);
+
+    expect(mockedNext).toHaveBeenCalledTimes(1);
   });
 });

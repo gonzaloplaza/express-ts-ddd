@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 export class IndexController {
-  public invoke(req: Request, res: Response): Response {
-    return res.json({});
+  public async invoke(req: Request, res: Response): Promise<Response> {
+    return Promise.resolve(res.json({}));
   }
 }

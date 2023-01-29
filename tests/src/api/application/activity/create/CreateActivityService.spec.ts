@@ -1,12 +1,15 @@
-import { IActivityRepository } from '../../../../src/api/domain/model/activity/IActivityRepository';
-import { CreateActivityService, CreateActivityRequest } from '../../../../src/api/application';
 import { createMock } from 'ts-auto-mock';
+import { IActivityRepository } from '../../../../../../src/api/domain/model/activity/IActivityRepository';
+import {
+  CreateActivityRequest,
+  CreateActivityService
+} from '../../../../../../src/api/application';
 
 describe('CreateActivityService', () => {
   const activityRepositoryMock: IActivityRepository = createMock<IActivityRepository>();
   const service = new CreateActivityService(activityRepositoryMock);
 
-  it('should not throw in acitivity creation', async () => {
+  it('should not throw in activity creation', async () => {
     expect.assertions(1);
 
     const testRequest: CreateActivityRequest = {
