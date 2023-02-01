@@ -1,7 +1,6 @@
 import { IAuthenticator } from '../../../../../src/api/domain/model/authentication/IAuthenticator';
 import { ILogger } from '../../../../../src/shared/domain/ILogger';
 import { createMock } from 'ts-auto-mock';
-import faker from 'faker';
 import {
   AuthenticationService,
   AuthenticationResponse
@@ -18,8 +17,8 @@ describe('AuthenticatorService', () => {
   it('should return an AuthenticationResponse object', async () => {
     // given
     const authenticationRequest = {
-      username: faker.internet.email(),
-      password: faker.internet.password()
+      username: 'test@test.com',
+      password: 'test'
     };
     const expectedAuthenticationResponse = { accessToken: 'testToken', expiresIn: 12345 };
     mockedAuthenticatorResponse.mockResolvedValueOnce(expectedAuthenticationResponse);
