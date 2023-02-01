@@ -22,18 +22,16 @@ export class Server {
     return await new Promise<void>((resolve) => {
       this.http = this.express.listen(this.config.PORT, () => {
         const { port } = this.http.address() as AddressInfo;
-        console.log(`🚀 Application ${this.config.APP_NAME} running on PORT ${port}`);
+        this.logger.info(`🚀 Application ${this.config.APP_NAME} running on PORT ${port}`);
         resolve();
       });
     });
   };
 
   public stop = async (): Promise<void> => {
-    console.log('Stopping http server...');
+    this.logger.info('Stopping http server...');
     await this.http.close();
   };
 
-  public invoke = (): express.Application => {
-    return this.express;
-  };
+  public invoke = (): express.Application => this.express;
 }

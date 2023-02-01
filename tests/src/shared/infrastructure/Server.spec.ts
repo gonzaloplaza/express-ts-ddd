@@ -1,12 +1,23 @@
-import { Server } from '../../../../src/shared/infrastructure/Server';
 import { Router as ExpressRouter } from 'express';
+import { createMock } from 'ts-auto-mock';
+import { Server } from '../../../../src/shared/infrastructure/Server';
 import { ServerLogger } from '../../../../src/shared/infrastructure/logger';
 import { config } from '../../../../config';
 
 describe('Server', () => {
+  const mockedServerLogger = createMock<ServerLogger>();
+  const server = new Server(ExpressRouter(), mockedServerLogger, config);
+
+  it('should return an express Application instance', () => {
+    // when
+    const app = server.invoke();
+
+    // then
+    expect(app).toBeDefined();
+  });
+
   it('should initiate and stop a server instance', async () => {
     // given
-    const server = new Server(ExpressRouter(), new ServerLogger(config), config);
     jest.spyOn(server, 'start');
     jest.spyOn(server, 'stop');
 

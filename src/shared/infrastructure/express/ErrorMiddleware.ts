@@ -8,7 +8,7 @@ export class ErrorMiddleware {
   constructor(private logger: ILogger) {}
 
   public routeNotFoundErrorHandler = (req: Request, res: Response): void => {
-    res.status(404).send({ error: 404, message: 'Route not found' });
+    res.status(404).json({ status: 404, message: 'Route not found' });
   };
 
   public clientErrorHandler = (
@@ -47,9 +47,10 @@ export class ErrorMiddleware {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     next: NextFunction
   ): Response => {
+    this.logger.error(err.message);
     return res.status(this.defaultHttpErrorCode).json({
-      message: 'Something wrong happened :`(',
-      status: this.defaultHttpErrorCode
+      status: this.defaultHttpErrorCode,
+      message: 'Something wrong happened :`('
     });
   };
 }

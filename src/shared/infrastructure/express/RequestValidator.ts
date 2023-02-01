@@ -9,6 +9,7 @@ export const RequestValidator = (
   const errorFormatter: ErrorFormatter = ({ msg, param }) => {
     return { parameter: param, message: msg };
   };
+
   const errors = validationResult(req).formatWith(errorFormatter).array({ onlyFirstError: true });
   if (errors.length > 0) {
     res.status(400).json({ errors: errors });

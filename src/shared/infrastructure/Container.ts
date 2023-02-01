@@ -26,6 +26,7 @@ import {
   CognitoAuthorizer
 } from '../../api/infrastructure/authentication/cognito';
 import { CognitoClient } from '../../api/infrastructure/authentication/cognito/CognitoClient';
+import { CognitoJwtVerifier } from '../../api/infrastructure/authentication/cognito/CognitoJwtVerifier';
 
 export class Container {
   private readonly container: AwilixContainer;
@@ -69,7 +70,8 @@ export class Container {
         authenticationService: asClass(ApiServices.AuthenticationService).singleton(),
         authenticator: asClass(CognitoAuthenticator).singleton(),
         client: asClass(CognitoClient).singleton(),
-        authorizer: asClass(CognitoAuthorizer).singleton()
+        authorizer: asClass(CognitoAuthorizer).singleton(),
+        jwtVerifier: asClass(CognitoJwtVerifier).singleton()
       })
       .register({
         getActivitiesController: asClass(ApiControllers.GetActivitiesController).singleton(),

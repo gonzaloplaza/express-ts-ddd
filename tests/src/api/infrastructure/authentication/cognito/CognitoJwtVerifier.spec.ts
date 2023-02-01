@@ -8,13 +8,16 @@ import { publicKeyFixture } from '../../../../../__fixtures__/publicKeyFixture';
 const mockedAxiosGet = jest.fn();
 const mockedClaim = jest.fn();
 jest.mock('axios', () => ({ get: () => mockedAxiosGet() }));
-jest.mock('jsonwebtoken', () => ({ verify: () => mockedClaim() }));
+jest.mock('jsonwebtoken', () => {
+  const actual = jest.requireActual('jsonwebtoken'); // Step 2.
+  return {
+    ...actual,
+    verify: () => mockedClaim()
+  };
+});
 
 describe('CognitoJwtVerifier', () => {
-  const cognitoJwtVerifier = new CognitoJwtVerifier(
-    config.APP_COGNITO.USER_POOL_ID,
-    config.APP_COGNITO.REGION
-  );
+  const cognitoJwtVerifier = new CognitoJwtVerifier(config);
 
   it('should not verify an invalid cognito jwt token', async () => {
     // given
@@ -40,15 +43,23 @@ describe('CognitoJwtVerifier', () => {
 
   it('should verify a valid cognito jwt token', async () => {
     // given
+    const iss = `https://cognito-idp.${config.APP_COGNITO.REGION}.amazonaws.com/${config.APP_COGNITO.USER_POOL_ID}`;
+    const kid = 'testKid';
     const authTime = 1671188177;
     const currentTime = 1671188197;
     const expirationTime = 1671188297;
-    const jwt = jwtFixture();
+    const jwt = jwtFixture(kid, 'SuperSecret', {
+      iss,
+      auth_time: authTime,
+      exp: expirationTime,
+      iat: currentTime
+    });
+
     mockedAxiosGet.mockReturnValueOnce({
       data: {
         keys: [
           publicKeyFixture({
-            kid: 'EWMrFwNjQzCqs6k63kHiHx1qXA5Z4slYztIg1ktEQ9Y='
+            kid
           })
         ]
       }
@@ -57,7 +68,7 @@ describe('CognitoJwtVerifier', () => {
     mockedClaim.mockReturnValueOnce(
       claimFixture({
         auth_time: authTime,
-        iss: `https://cognito-idp.${config.APP_COGNITO.REGION}.amazonaws.com/${config.APP_COGNITO.USER_POOL_ID}`,
+        iss,
         exp: expirationTime
       })
     );

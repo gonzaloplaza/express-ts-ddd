@@ -3,35 +3,64 @@ import { config } from '../../../../../../config';
 import { CognitoAuthorizer } from '../../../../../../src/api/infrastructure/authentication/cognito';
 import { createMock } from 'ts-auto-mock';
 import { jwtFixture } from '../../../../../__fixtures__/jwtFixture';
+import { ErrorHandler } from '../../../../../../src/shared/domain/ErrorHandler';
+import { CognitoJwtVerifier } from '../../../../../../src/api/infrastructure/authentication/cognito/CognitoJwtVerifier';
 
 describe('CognitoAuthorizer', () => {
-  it('should authorize a token', async () => {
+  const mockedRequest = createMock<Request>({
+    headers: { authorization: `Bearer ${jwtFixture()}` }
+  });
+  const mockedResponse: Response = createMock<Response>({});
+  const mockedNext: NextFunction = jest.fn();
+  const mockedCognitoJwtVerifierResponse = jest.fn().mockResolvedValue({});
+  const mockedCognitoJwtVerifier = createMock<CognitoJwtVerifier>({
+    verify: mockedCognitoJwtVerifierResponse
+  });
+  const testEmail = 'test@email.com';
+
+  it('should authorize a valid token', async () => {
     // given
-    const mockedRequest = createMock<Request>({
-      headers: { authorization: `Bearer ${jwtFixture()}` }
+    mockedCognitoJwtVerifierResponse.mockResolvedValueOnce({
+      userName: testEmail,
+      isValid: true
     });
-    const mockedResponse: Response = createMock<Response>({});
-    const mockedNext = jest.fn();
+    mockedRequest.headers = { authorization: `Bearer ${jwtFixture()}` };
+    const cognitoAuthorizer = new CognitoAuthorizer(config, mockedCognitoJwtVerifier);
 
-    const cognitoAuthorizer = new CognitoAuthorizer(config);
-
+    // when
     await cognitoAuthorizer.authorize(mockedRequest, mockedResponse, mockedNext);
 
+    // then
+    expect(mockedRequest.headers.user_id).toBe(testEmail);
     expect(mockedNext).toHaveBeenCalledTimes(1);
   });
 
-  it('should authorize a token', async () => {
+  it('should throw an error when token is invalid or expired', async () => {
     // given
-    const mockedRequest = createMock<Request>({
-      headers: { authorization: `Bearer Invalid` }
+    mockedCognitoJwtVerifierResponse.mockResolvedValueOnce({
+      error: 'error_message',
+      isValid: false
     });
-    const mockedResponse: Response = createMock<Response>({});
-    const mockedNext = jest.fn();
+    mockedRequest.headers = { authorization: `Bearer ${jwtFixture()}` };
+    const cognitoAuthorizer = new CognitoAuthorizer(config, mockedCognitoJwtVerifier);
 
-    const cognitoAuthorizer = new CognitoAuthorizer(config);
-
+    // when
     await cognitoAuthorizer.authorize(mockedRequest, mockedResponse, mockedNext);
 
-    expect(mockedNext).toHaveBeenCalledTimes(1);
+    // then
+    expect(mockedNext).toHaveBeenCalledWith(new ErrorHandler('Unauthorized: error_message', 401));
+  });
+
+  it('should throw an error when the JWT verifier throws an error', async () => {
+    // given
+    mockedCognitoJwtVerifierResponse.mockRejectedValueOnce(new Error('error_message'));
+    const cognitoAuthorizer = new CognitoAuthorizer(config, mockedCognitoJwtVerifier);
+    mockedRequest.headers = {};
+
+    // when
+    await cognitoAuthorizer.authorize(mockedRequest, mockedResponse, mockedNext);
+
+    // then
+    expect(mockedNext).toHaveBeenCalledWith(new ErrorHandler('Unauthorized: error_message', 401));
   });
 });

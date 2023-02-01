@@ -5,6 +5,6 @@ export class HealthCheckController {
   constructor(private healthCheckService: HealthCheckService) {}
 
   public async invoke(req: Request, res: Response): Promise<Response> {
-    return res.json(this.healthCheckService.invoke());
+    return res.json(await this.healthCheckService.invoke());
   }
 }

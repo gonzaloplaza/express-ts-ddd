@@ -9,7 +9,7 @@ import { Handler } from 'express';
 
 export class ServerLogger implements ILogger {
   private logger: Logger;
-  private logsDirectory: string;
+  private readonly logsDirectory: string;
 
   constructor(private config: Configuration) {
     this.logsDirectory = path.resolve(`${appRoot}`, 'logs');
