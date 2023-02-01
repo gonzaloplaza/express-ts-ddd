@@ -1,13 +1,5 @@
-import { IndexController } from './index/IndexController';
-import { HealthCheckController } from './healthcheck/HealthCheckController';
-import { GetActivitiesController } from './activity/GetActivitiesController';
-import { CreateActivityController } from './activity/CreateActivityController';
-import { PostAuthenticationController } from './authentication/PostAuthenticationController';
-
-export {
-  IndexController,
-  HealthCheckController,
-  GetActivitiesController,
-  CreateActivityController,
-  PostAuthenticationController
-};
+export * from './index/IndexController';
+export * from './healthcheck/HealthCheckController';
+export * from './activity/GetActivitiesController';
+export * from './activity/CreateActivityController';
+export * from './authentication/PostAuthenticationController';

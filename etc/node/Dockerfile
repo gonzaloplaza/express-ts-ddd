@@ -10,10 +10,16 @@ ENV NODE_ENV=$NODE_ENV
 ENV APP_NAME=express-ts-ddd
 ENV PORT=3000
 
+# Configure user
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
+
 WORKDIR /var/www/app
 
 # Expose the port nginx is reachable on
 EXPOSE ${PORT}
+
+USER nonroot
 
 # Let supervisord start nginx && node js built app
 CMD ["yarn", "dev"]

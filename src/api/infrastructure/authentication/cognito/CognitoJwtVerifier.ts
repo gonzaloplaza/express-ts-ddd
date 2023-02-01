@@ -1,5 +1,7 @@
 import axios from 'axios';
 import jsonwebtoken from 'jsonwebtoken';
+import { getCurrentSeconds } from '../../../../shared/infrastructure/date';
+import { Configuration } from '../../../../../config';
 
 // Warning: DO NOT use @types/jwk-to-pem or import for this package.
 // DO NOT remove this eslint-disbable comment.
@@ -24,7 +26,7 @@ interface TokenHeader {
   alg: string;
 }
 
-interface PublicKey {
+export interface PublicKey {
   alg: string;
   e: string;
   kid: string;
@@ -38,7 +40,7 @@ interface PublicKeyMeta {
   pem: string;
 }
 
-interface PublicKeys {
+export interface PublicKeys {
   keys: PublicKey[];
 }
 
@@ -46,7 +48,7 @@ interface MapOfKidToPublicKey {
   [key: string]: PublicKeyMeta;
 }
 
-interface Claim {
+export interface Claim {
   token_use: string;
   auth_time: number;
   iss: string;
@@ -56,15 +58,11 @@ interface Claim {
 }
 
 export class CognitoJwtVerifier {
-  private cognitoIssuer: string;
+  private readonly cognitoIssuer: string;
   private cacheKeys: MapOfKidToPublicKey | undefined;
 
-  constructor(private cognitoUserPoolId: string, private cognitoRegion: string) {
-    if (!cognitoUserPoolId || !cognitoRegion) {
-      throw new Error('Valid CognitoUserPoolId and CognitoRegion are required.');
-    }
-
-    this.cognitoIssuer = `https://cognito-idp.${this.cognitoRegion}.amazonaws.com/${this.cognitoUserPoolId}`;
+  constructor(private config: Configuration) {
+    this.cognitoIssuer = `https://cognito-idp.${this.config.APP_COGNITO.REGION}.amazonaws.com/${this.config.APP_COGNITO.USER_POOL_ID}`;
   }
 
   public async verify(token: string): Promise<ClaimVerifyResult> {
@@ -73,33 +71,39 @@ export class CognitoJwtVerifier {
     };
 
     let result: ClaimVerifyResult;
+    let error = undefined;
 
     try {
       const token = request.token;
       const tokenSections = (token || '').split('.');
       if (tokenSections.length < 2) {
-        throw new Error('Invalid JWT token');
+        error = 'Invalid JWT token';
       }
       const headerJSON = Buffer.from(tokenSections[0], 'base64').toString('utf8');
       const header = JSON.parse(headerJSON) as TokenHeader;
       const keys = await this.getPublicKeys();
       const key = keys[header.kid];
       if (key === undefined) {
-        throw new Error('Claim made for unknown kid');
+        error = 'Claim made for unknown kid';
       }
 
       const claim = (await jsonwebtoken.verify(token, key.pem)) as Claim;
-      const currentSeconds = Math.floor(new Date().valueOf() / 1000);
+      const currentSeconds = getCurrentSeconds();
       if (currentSeconds > claim.exp || currentSeconds < claim.auth_time) {
-        throw new Error('Claim is expired or invalid');
+        error = 'Claim is expired or invalid';
       }
       if (claim.iss !== this.cognitoIssuer) {
-        throw new Error('Claim issuer is invalid');
+        error = 'Claim issuer is invalid';
       }
       if (claim.token_use !== 'access') {
-        throw new Error('Claim use is not access');
+        error = 'Claim use is not access';
       }
-      result = { userName: claim.username, clientId: claim.client_id, isValid: true };
+
+      if (!error) {
+        result = { userName: claim.username, clientId: claim.client_id, isValid: true };
+      } else {
+        result = { userName: '', clientId: '', error, isValid: false };
+      }
     } catch (error: any) {
       result = { userName: '', clientId: '', error: error.message, isValid: false };
     }

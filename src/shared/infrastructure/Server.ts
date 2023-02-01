@@ -5,7 +5,7 @@ import { Configuration } from '../../../config';
 import { ServerLogger } from './logger';
 
 export class Server {
-  private express: express.Application;
+  private readonly express: express.Application;
   private http: http.Server | any;
 
   constructor(
@@ -19,21 +19,19 @@ export class Server {
   }
 
   public start = async (): Promise<void> => {
-    return new Promise<void>((resolve) => {
+    return await new Promise<void>((resolve) => {
       this.http = this.express.listen(this.config.PORT, () => {
         const { port } = this.http.address() as AddressInfo;
-        console.log(`🚀 Application ${this.config.APP_NAME} running on PORT ${port}`);
+        this.logger.info(`🚀 Application ${this.config.APP_NAME} running on PORT ${port}`);
         resolve();
       });
     });
   };
 
   public stop = async (): Promise<void> => {
-    console.log('Stopping http server...');
-    this.http.close();
+    this.logger.info('Stopping http server...');
+    await this.http.close();
   };
 
-  public invoke = (): express.Application => {
-    return this.express;
-  };
+  public invoke = (): express.Application => this.express;
 }

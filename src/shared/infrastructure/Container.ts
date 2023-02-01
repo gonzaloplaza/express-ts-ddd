@@ -18,13 +18,15 @@ import { ErrorMiddleware } from './express/ErrorMiddleware';
 import { Uuidv4Generator } from './uuid';
 import { PrismaActivityRepository } from '../../api/infrastructure/persistence/prisma/PrismaActivityRepository';
 import { ApiRouter } from '../../api/infrastructure/express/router';
-import { PrismaClientInstance } from './prisma';
+import { createPrismaClient } from './prisma';
 import { ServerLogger } from './logger';
 import { config } from '../../../config';
 import {
   CognitoAuthenticator,
   CognitoAuthorizer
 } from '../../api/infrastructure/authentication/cognito';
+import { CognitoClient } from '../../api/infrastructure/authentication/cognito/CognitoClient';
+import { CognitoJwtVerifier } from '../../api/infrastructure/authentication/cognito/CognitoJwtVerifier';
 
 export class Container {
   private readonly container: AwilixContainer;
@@ -45,7 +47,7 @@ export class Container {
         config: asValue(config),
         router: asFunction(Router).singleton(),
         logger: asClass(ServerLogger).singleton(),
-        db: asFunction(PrismaClientInstance).singleton()
+        db: asFunction(createPrismaClient).singleton()
       })
       .register({
         errorMiddleware: asClass(ErrorMiddleware).singleton(),
@@ -67,7 +69,9 @@ export class Container {
         ).singleton(),
         authenticationService: asClass(ApiServices.AuthenticationService).singleton(),
         authenticator: asClass(CognitoAuthenticator).singleton(),
-        authorizer: asClass(CognitoAuthorizer).singleton()
+        client: asClass(CognitoClient).singleton(),
+        authorizer: asClass(CognitoAuthorizer).singleton(),
+        jwtVerifier: asClass(CognitoJwtVerifier).singleton()
       })
       .register({
         getActivitiesController: asClass(ApiControllers.GetActivitiesController).singleton(),

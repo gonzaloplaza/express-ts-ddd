@@ -20,8 +20,8 @@
     "start": "ts-node ./bin/index.ts",
     "build": "rm -rf ./dist/ && tsc -p .",
     "studio": "prisma studio",
-    "test": "jest --detectOpenHandles",
-    "coverage": "jest --coverage --detectOpenHandles"
+    "test": "jest --config jest.config.js --runInBand --no-cache --detectOpenHandles",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit"
   },
   "prisma": {
     "schema": "prisma/schema.prisma"
@@ -63,11 +63,11 @@
     "eslint": "^7.19.0",
     "faker": "^5.4.0",
     "jest": "^29.4.0",
+    "jest-mock-extended": "^3.0.1",
     "jest-ts-auto-mock": "^2.0.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
     "prisma": "^4.9.0",
-    "supertest": "^6.3.3",
     "ts-auto-mock": "^3.6.4",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
