@@ -1,6 +1,5 @@
 import { CognitoAuthenticator } from '../../../../../../src/api/infrastructure/authentication/cognito';
 import { config } from '../../../../../../config';
-import fakerStatic from 'faker';
 import { CognitoClient } from '../../../../../../src/api/infrastructure/authentication/cognito/CognitoClient';
 import { createMock } from 'ts-auto-mock';
 
@@ -20,8 +19,8 @@ describe('CognitoAuthenticator', () => {
     // then
     await expect(
       cognitoAuthenticator.auth({
-        username: fakerStatic.internet.exampleEmail(),
-        password: fakerStatic.internet.password()
+        username: 'example@example.com',
+        password: 'test'
       })
     ).rejects.toThrow(userDoesNotExistError);
   });
