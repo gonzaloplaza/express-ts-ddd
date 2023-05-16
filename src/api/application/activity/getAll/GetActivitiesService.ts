@@ -1,7 +1,5 @@
-import { Activity } from '@prisma/client';
 import { IActivityRepository } from '../../../domain/model/activity/IActivityRepository';
-
-export type GetActivitiesResponse = Activity[];
+import { GetActivitiesResponse } from './types'
 
 export class GetActivitiesService {
   constructor(private activityRepository: IActivityRepository) {}
