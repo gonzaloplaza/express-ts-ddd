@@ -1,10 +1,5 @@
 import { IUuidGenerator } from '../../../shared/domain/IUuidGenerator';
-
-type HealthCheckResponse = {
-  id: string;
-  success: boolean;
-  date: string;
-};
+import { HealthCheckResponse } from './types'
 
 export class HealthCheckService {
   constructor(private uuidGenerator: IUuidGenerator) {}

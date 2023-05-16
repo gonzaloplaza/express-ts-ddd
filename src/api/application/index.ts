@@ -1,19 +1,8 @@
-import { HealthCheckService } from './healthcheck/HealthCheckService';
-import {
-  GetActivitiesService,
-  GetActivitiesResponse
-} from './activity/getAll/GetActivitiesService';
-import {
-  CreateActivityService,
-  CreateActivityRequest
-} from './activity/create/CreateActivityService';
-import { AuthenticationService } from './authentication/AuthenticationService';
-
-export {
-  HealthCheckService,
-  GetActivitiesService,
-  GetActivitiesResponse,
-  CreateActivityService,
-  CreateActivityRequest,
-  AuthenticationService
-};
+export * from './activity/create/types';
+export * from './activity/getAll/types';
+export * from './authentication/types';
+export * from './healthcheck/types';
+export * from './healthcheck/HealthCheckService';
+export * from './authentication/AuthenticationService';
+export * from './activity/create/CreateActivityService'
+export * from './activity/getAll/GetActivitiesService';

@@ -1,11 +1,5 @@
 import { IActivityRepository } from '../../../domain/model/activity/IActivityRepository';
-
-export type CreateActivityRequest = {
-  type: string;
-  content: string;
-};
-
-export type CreateActivityResponse = void;
+import { CreateActivityRequest, CreateActivityResponse } from './types/'
 
 export class CreateActivityService {
   constructor(private activityRepository: IActivityRepository) {}

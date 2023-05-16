@@ -1,15 +1,6 @@
 import { IAuthenticator } from '../../domain/model/authentication/IAuthenticator';
 import { ILogger } from '../../../shared/domain/ILogger';
-
-export type AuthenticationRequest = {
-  username: string;
-  password: string;
-};
-
-export type AuthenticationResponse = {
-  accessToken: string;
-  expiresIn: number;
-};
+import { AuthenticationRequest, AuthenticationResponse } from './types'
 
 export class AuthenticationService {
   constructor(private logger: ILogger, private authenticator: IAuthenticator) {}

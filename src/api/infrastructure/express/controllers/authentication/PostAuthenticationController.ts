@@ -5,7 +5,7 @@ import { body } from 'express-validator';
 import {
   AuthenticationService,
   AuthenticationResponse
-} from 'src/api/application/authentication/AuthenticationService';
+} from 'src/api/application/index';
 
 export class PostAuthenticationController {
   constructor(private authenticationService: AuthenticationService) {}
