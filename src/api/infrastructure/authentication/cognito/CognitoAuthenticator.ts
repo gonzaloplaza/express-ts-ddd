@@ -2,7 +2,7 @@ import { Configuration } from '../../../../../config';
 import {
   AuthenticationRequest,
   AuthenticationResponse
-} from '../../../application/authentication/AuthenticationService';
+} from '../../../application/authentication/types';
 import { IAuthenticator } from '../../../domain/model/authentication/IAuthenticator';
 import { CognitoClient } from './CognitoClient';
 

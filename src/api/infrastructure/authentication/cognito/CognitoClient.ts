@@ -6,7 +6,7 @@ import {
   IAuthenticationDetailsData
 } from 'amazon-cognito-identity-js';
 import { Configuration } from '../../../../../config';
-import { AuthenticationResponse } from '../../../application/authentication/AuthenticationService';
+import { AuthenticationResponse } from '../../../application/authentication/types';
 
 export class CognitoClient {
   private readonly userPool: CognitoUserPool;
