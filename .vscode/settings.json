@@ -6,7 +6,11 @@
     "[typescript]": {
       "editor.formatOnSave": true,
       "editor.formatOnPaste": true,
-      "editor.quickSuggestions":true,
+      "editor.quickSuggestions":{
+        "comments": "on",
+        "strings": "on",
+        "other": "on"
+      },
       "editor.suggestOnTriggerCharacters": true,
     },
     "[markdown]": {
