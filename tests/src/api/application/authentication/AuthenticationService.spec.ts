@@ -1,6 +1,7 @@
 import { IAuthenticator } from '../../../../../src/api/domain/model/authentication/IAuthenticator';
 import { ILogger } from '../../../../../src/shared/domain/ILogger';
 import { createMock } from 'ts-auto-mock';
+import { randomTextFixture } from '../../../../__fixtures__/randomTextFixture';
 import {
   AuthenticationService,
   AuthenticationResponse
@@ -16,9 +17,10 @@ describe('AuthenticatorService', () => {
 
   it('should return an AuthenticationResponse object', async () => {
     // given
+    const randomUsername = randomTextFixture(12);
     const authenticationRequest = {
-      username: 'test@test.com',
-      password: 'test'
+      username: `${randomUsername}@test.com`,
+      password: randomTextFixture(18)
     };
     const expectedAuthenticationResponse = { accessToken: 'testToken', expiresIn: 12345 };
     mockedAuthenticatorResponse.mockResolvedValueOnce(expectedAuthenticationResponse);

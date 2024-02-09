@@ -1,4 +1,4 @@
-FROM node:14-alpine AS ts-build
+FROM node:18-alpine AS ts-build
 
 RUN mkdir -p /app
 
@@ -7,7 +7,7 @@ COPY package.json yarn.lock /app/
 WORKDIR /app
 
 # Install Node dependencies
-RUN yarn install
+RUN yarn install --ignore-scripts
 
 # Copy source files
 COPY ./src /app/src
@@ -24,7 +24,7 @@ RUN yarn build
 
 # Generate build container
 
-FROM node:16-alpine
+FROM node:18-alpine
 
 LABEL Maintainer="Gonzalo Plaza <gonzalo@verize.com>" \
       Description="Lightweight container with Node 16 based on Alpine Linux"
@@ -59,7 +59,7 @@ WORKDIR /app
 COPY package.json yarn.lock /app/
 
 # Install production Node dependencies
-RUN yarn install --production
+RUN yarn install --ignore-scripts --production
 
 # Copy nodels build from previous stage
 COPY --from=ts-build /app/dist /app/

@@ -1,43 +1,43 @@
 name: ci
 on:
-    pull_request:
-        types: [opened, synchronize, reopened]
-    push:
-        branches:
-            - "master"
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - 'master'
 jobs:
-    test:
-        name: Express-TS (Node ${{ matrix.node-version }} on ${{ matrix.operating-system }})
-        runs-on: ${{ matrix.operating-system }}
-        strategy:
-            fail-fast: false
-            matrix:
-                operating-system: [ubuntu-latest]
-                node-version: [16.x]
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
-              with:
-                fetch-depth: 0
-            - name: Node.js
-              uses: actions/setup-node@v3
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - run: npm install -g yarn
-            - name: Install dependencies with Yarn
-              run: yarn install
-            - name: Generate Prisma Client
-              run: yarn prisma generate
-            - name: Build/Transpile TypeScript files to dist
-              run: yarn build
-            - name: Run tests
-              run: yarn test --coverage
-              env:
-                COGNITO_USER_POOL: ${{ secrets.COGNITO_USER_POOL }}
-                COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
-                COGNITO_REGION: ${{ secrets.COGNITO_REGION }}
-            - name: SonarCloud Scan
-              uses: SonarSource/sonarcloud-github-action@master
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  test:
+    name: Express-TS (Node ${{ matrix.node-version }} on ${{ matrix.operating-system }})
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ubuntu-latest]
+        node-version: [18.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install -g yarn
+      - name: Install dependencies with Yarn
+        run: yarn install --ignore-scripts
+      - name: Generate Prisma Client
+        run: yarn prisma generate
+      - name: Build/Transpile TypeScript files to dist
+        run: yarn build
+      - name: Run tests
+        run: yarn test --coverage
+        env:
+          COGNITO_USER_POOL: ${{ secrets.COGNITO_USER_POOL }}
+          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
+          COGNITO_REGION: ${{ secrets.COGNITO_REGION }}
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
