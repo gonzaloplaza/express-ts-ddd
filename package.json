@@ -64,7 +64,7 @@
     "jest-mock-extended": "^3.0.1",
     "jest-ts-auto-mock": "^2.0.0",
     "nodemon": "^2.0.20",
-    "prettier": "^2.8.3",
+    "prettier": "^3.2.5",
     "prisma": "^4.9.0",
     "ts-auto-mock": "^3.6.4",
     "ts-jest": "^29.0.5",
