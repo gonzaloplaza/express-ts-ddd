@@ -38,7 +38,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-validator": "^6.14.3",
-    "helmet": "^6.0.1",
+    "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.0",
     "jwk-to-pem": "^2.0.5",
     "morgan": "^1.10.0",
