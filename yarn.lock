@@ -894,17 +894,12 @@
   dependencies:
     "@types/node" "*"
 
-"@types/node@*":
-  version "20.11.17"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.17.tgz#cdd642d0e62ef3a861f88ddbc2b61e32578a9292"
-  integrity sha512-QmgQZGWu1Yw9TDyAP9ZzpFJKynYNeOvwMJmaxABfieQoVoiVOS6MN1WSpqpRcbeA5+RW82kraAVxCCJg+780Qw==
+"@types/node@*", "@types/node@^20.12.2":
+  version "20.12.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.12.2.tgz#9facdd11102f38b21b4ebedd9d7999663343d72e"
+  integrity sha512-zQ0NYO87hyN6Xrclcqp7f8ZbXNbRfoGWNcMvHTPQp9UUrwI0mI7XBz+cu7/W6/VClYo2g63B0cjull/srU7LgQ==
   dependencies:
     undici-types "~5.26.4"
-
-"@types/node@^16.18.11":
-  version "16.18.80"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.80.tgz#9644e2d8acaf8163d46d23e05ce3822e9379dfc3"
-  integrity sha512-vFxJ1Iyl7A0+xB0uW1r1v504yItKZLdqg/VZELUZ4H02U0bXAgBisSQ8Erf0DMruNFz9ggoiEv6T8Ll9bTg8Jw==
 
 "@types/qs@*":
   version "6.9.11"
